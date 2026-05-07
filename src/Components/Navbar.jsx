@@ -1,7 +1,7 @@
 import React from 'react'
 import { CiSearch, CiShoppingCart } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa";
-import { MdCurrencyRupee } from "react-icons/md";
+import { BsCurrencyDollar } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 
 
@@ -14,18 +14,43 @@ const Navbar = () => {
         </Link>
       </div>
       <div className=''>
-        <ul className='flex gap-14 uppercase font-bold'>
-          <li><Link to="/new">New & Featured</Link></li>
-          <li><Link to="/bags">Bags</Link></li>
-          <li><Link to="/sling">Slings</Link></li>
-          <li><Link to="/accessories" >Accessories</Link></li>
-          <li><Link to="/shoes">Shoes</Link></li>
-          <li><Link to="/sale">Sale</Link></li>
-        </ul>
+        <ul className="flex gap-14 uppercase font-semibold">
+
+
+  <li>
+    <Link to="/bags" className="transition hover:text-black text-black/70">
+      Bags
+    </Link>
+  </li>
+
+  <li>
+    <Link to="/sling" className="transition hover:text-black text-black/70">
+      Slings
+    </Link>
+  </li>
+
+  <li>
+    <Link to="/accessories" className="transition hover:text-black text-black/70">
+      Accessories
+    </Link>
+  </li>
+
+  <li>
+    <Link to="/shoes" className="transition hover:text-black text-black/70">
+      Shoes
+    </Link>
+  </li>
+
+  <li>
+    <Link to="/new" className="transition hover:text-black text-black/70">
+      New Deals
+    </Link>
+  </li>
+</ul>
       </div>
       <div className='' >
         <ul className='flex gap-4'>
-          <li className='bg-zinc-200 rounded-full p-2 hover:bg-zinc-300 ease-in'><MdCurrencyRupee /></li>
+          <li className='bg-zinc-200 rounded-full p-2 hover:bg-zinc-300 ease-in'><BsCurrencyDollar /></li>
           <li className='bg-zinc-200 rounded-full p-2 hover:bg-zinc-300 ease-in'><CiSearch /></li>
           <li className='bg-zinc-200 rounded-full p-2 hover:bg-zinc-300 ease-in'><CiShoppingCart /></li>
           <li className='bg-zinc-200 rounded-full p-2 hover:bg-zinc-300 ease-in'><FaRegUser /></li>

@@ -1,73 +1,70 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 import { CiCircleChevRight } from "react-icons/ci";
+
+const cards = [
+  {
+    title: "Sling",
+    link: "/sling",
+    img: "https://chromeindustries.com/cdn/shop/files/Kadet_Max_Steel_Blue_SQ_HP_1.jpg?v=1777073141&width=1200",
+  },
+  {
+    title: "Gear up Deal",
+    link: "/accessories",
+    img: "https://chromeindustries.com/cdn/shop/files/HP_Accessories_sm_sq_2_1.jpg?v=1769108394&width=1200",
+  },
+  {
+    title: "Pick It UP",
+    link: "/bags",
+    img: "https://chromeindustries.com/cdn/shop/files/hp_pack_it_up_20L_1.jpg?v=1777073743&width=1200",
+  },
+];
 
 const Section2 = () => {
   return (
-    <div className='flex flex-col'>
+    <div className="flex flex-col">
 
-      <div className='flex justify-center items-center font-bold uppercase text-4xl p-8'>
+      {/* Heading */}
+      <div className="text-center font-semibold uppercase text-3xl md:text-4xl py-10">
         Made for What’s Ahead. Since 1995.
       </div>
 
-      <div className='flex justify-between px-12' >
+      {/* Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-15 px-6 md:px-12 ">
 
-        {/* Card */}
-        <div className='relative group cursor-pointer overflow-hidden'>
-          <img
-            className='h-92 group-hover:scale-105 transition duration-300  '
-            src="https://chromeindustries.com/cdn/shop/files/Kadet_Max_Steel_Blue_SQ_HP_1.jpg?v=1777073141&width=1200"
-            alt=""
-          />
+        {cards.map((card, index) => (
+          <Link
+            key={index}
+            to={card.link}
+            className="relative group overflow-hidden hover:opacity-90"
+          >
+            {/* Image */}
+            <img
+              src={card.img}
+              alt={card.title}
+              className="h-120 w-full object-cover group-hover:scale-105 transition duration-300"
+            />
 
-          {/* Always visible text */}
-          <div className='absolute bottom-4 left-4 p-2.5 pr-3.5 pl-3.5 bg-white '>
-            <button className='text-xl font-bold '>Shop Bags</button>
-          </div>
-
-          {/* Icon (appears on hover) */}
-          <div className='absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition duration-300'>
-            <div className='bg-white p-1 rounded-full'>
-              <CiCircleChevRight className='text-black text-3xl' />
+            {/* Bottom Label */}
+            <div className="absolute bottom-4 left-4 text-white  px-3 py-2">
+              <span className="text-4xl font-semibold uppercase hover:opacity-100">
+                {card.title}
+              </span>
             </div>
-          </div>
-        </div>
 
-        {/* Repeat for others */}
-        <div className='relative group cursor-pointer overflow-hidden'>
-          <img
-            className='h-92 group-hover:scale-105 transition duration-300'
-            src="https://chromeindustries.com/cdn/shop/files/HP_Accessories_sm_sq_2_1.jpg?v=1769108394&width=1200"
-            alt=""
-          />
-          <div className='absolute bottom-4 left-4 p-2.5 pr-3.5 pl-3.5 bg-white'>
-            <button className='text-xl font-bold '>Accessories</button>
-          </div>
-          <div className='absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition duration-300'>
-            <div className='bg-white p-1 rounded-full'>
-              <CiCircleChevRight className='text-black text-3xl' />
+            {/* Hover Icon */}
+            <div className="absolute top-50 right-43 opacity-0 group-hover:opacity-100 transition duration-300 hover:opacity-100">
+              <div className=" p-1 rounded-full ">
+                <CiCircleChevRight className="text-white text-7xl " />
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div className='relative group cursor-pointer overflow-hidden '>
-          <img
-            className='h-92 group-hover:scale-105 transition duration-300 '
-            src="https://chromeindustries.com/cdn/shop/files/hp_pack_it_up_20L_1.jpg?v=1777073743&width=1200"
-            alt=""
-          />
-          <div className='absolute bottom-4 left-4 p-2.5 pr-3.5 pl-3.5 bg-white'>
-            <button className='text-xl font-bold'>New Arrivals</button>
-          </div>
-          <div className='absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition duration-300'>
-            <div className='bg-white p-1 rounded-full'>
-              <CiCircleChevRight className='text-black text-3xl ' />
-            </div>
-          </div>
-        </div>
+          </Link>
+        ))}
 
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Section2
+export default Section2;

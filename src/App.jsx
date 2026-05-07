@@ -9,11 +9,15 @@ import Section2 from './Pages/Section2'
 import Shoes from './Mainlinks/Shoes'
 import Accessories from './Mainlinks/Accessories'
 import Sling from './Mainlinks/Sling'
-import Sale from './Mainlinks/Sale'
+
+import ScrolltoTop from './Components/ScroltoTop'
+import Section3 from './Pages/Section3'
 
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrolltoTop />
+
       <HeaderSlider />
       <Navbar />
 
@@ -22,6 +26,7 @@ const App = () => {
           <>
             <Section1 />
             <Section2 />
+            <Section3 />
           </>
         } />
 
@@ -30,7 +35,7 @@ const App = () => {
         <Route path="/shoes" element={<Shoes />} />
         <Route path="/accessories" element={<Accessories />} />
         <Route path="/sling" element={<Sling />} />
-        <Route path="/sale" element={<Sale />} />
+        
       </Routes>
 
     </BrowserRouter>

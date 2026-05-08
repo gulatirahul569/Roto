@@ -12,6 +12,7 @@ import Sling from './Mainlinks/Sling'
 
 import ScrolltoTop from './Components/ScroltoTop'
 import Section3 from './Pages/Section3'
+import Footer from './Components/Footer'
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/sling" element={<Sling />} />
         
       </Routes>
+      <Footer />
 
     </BrowserRouter>
   )

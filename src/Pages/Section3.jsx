@@ -1,11 +1,15 @@
 import React, { useRef } from "react";
-import { NewFeatured_products } from "../Mainlinks/New";
+import { useCart } from "../Components/CartContext";
+import { Products } from "../Components/Products";
+
 
 const Section3 = () => {
+const { addToCart } = useCart(); 
   const sliderRef = useRef(null);
 
-  const newDrops = NewFeatured_products.filter(
-    (item) => item.tag === "New"
+
+  const newDrops = Products.filter(
+    (item) => item.newCategory === "NF"
   );
 
   const scrollLeft = () => {
@@ -69,18 +73,26 @@ const Section3 = () => {
             />
 
             <div className="p-4">
-              <h2 className="text-lg font-bold uppercase">
+              <h2 className="text-lg font-bold uppercase flex items-center gap-5">
                 {product.name}
+                <span className="text-sm text-gray-500">
+                  {product.category}
+                </span>
               </h2>
+               
 
               <div className="flex justify-between mt-3">
                 <p className="font-black text-xl">
                   ${product.price}
                 </p>
+                <button
+                  onClick={() => addToCart(product)}
+                  className="bg-black text-white px-5 py-2 rounded-full hover:bg-gray-800 transition"
+                >
+                 Quick Cart +
+                </button>
 
-                <span className="text-sm text-gray-500">
-                  {product.category}
-                </span>
+               
               </div>
             </div>
           </div>

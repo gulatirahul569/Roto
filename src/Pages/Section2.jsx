@@ -5,17 +5,17 @@ import { CiCircleChevRight } from "react-icons/ci";
 const cards = [
   {
     title: "Sling",
-    link: "/sling",
+    link: "/main/sling",
     img: "https://chromeindustries.com/cdn/shop/files/Kadet_Max_Steel_Blue_SQ_HP_1.jpg?v=1777073141&width=1200",
   },
   {
     title: "Gear up Deal",
-    link: "/accessories",
+    link: "/main/accessories",
     img: "https://chromeindustries.com/cdn/shop/files/HP_Accessories_sm_sq_2_1.jpg?v=1769108394&width=1200",
   },
   {
     title: "Pick It UP",
-    link: "/bags",
+    link: "/main/bags",
     img: "https://chromeindustries.com/cdn/shop/files/hp_pack_it_up_20L_1.jpg?v=1777073743&width=1200",
   },
 ];
@@ -34,6 +34,12 @@ const Section2 = () => {
 
         {cards.map((card, index) => (
           <Link
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
+            }}
             key={index}
             to={card.link}
             className="relative group overflow-hidden hover:opacity-90"

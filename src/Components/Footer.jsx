@@ -14,7 +14,7 @@ const Footer = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-10 border-b border-gray-700 pb-5">
 
         {/* BRAND */}
-        <div>
+        <div className="flex flex-col">
             
           <h1 className="text-2xl font-bold uppercase mb-4">
             Roto
@@ -26,9 +26,9 @@ const Footer = () => {
         </div>
 
         {/* SHOP */}
-        <div>
-          <h2 className="font-semibold uppercase mb-4">Shop</h2>
-          <ul className="space-y-2 text-gray-400 text-sm">
+        <div className="flex flex-col  items-center">
+          <h2 className="font-semibold uppercase mb-4 mr-10 ">Shop</h2>
+          <ul className=" text-gray-400 text-sm ">
             <li><Link to="/bags">Bags</Link></li>
             <li><Link to="/shoes">Shoes</Link></li>
             <li><Link to="/sling">Slings</Link></li>
@@ -38,9 +38,9 @@ const Footer = () => {
         </div>
 
         {/* HELP */}
-        <div>
-          <h2 className="font-semibold uppercase mb-4">Help</h2>
-          <ul className="space-y-2 text-gray-400 text-sm">
+        <div className="flex flex-col  items-center ">
+          <h2 className="font-semibold uppercase mb-4 mr-12">Help</h2>
+          <ul className=" text-gray-400 text-sm">
             <li>Shipping</li>
             <li>Returns</li>
             <li>Order Tracking</li>
@@ -50,9 +50,9 @@ const Footer = () => {
         </div>
 
         {/* SOCIAL */}
-        <div>
-          <h2 className="font-semibold uppercase mb-4">Follow</h2>
-          <ul className="space-y-2 text-gray-400 text-sm">
+        <div className="flex flex-col  items-center">
+          <h2 className="font-semibold uppercase mb-4 mr-5">Follow</h2>
+          <ul className="space-y-1 text-gray-400 text-sm ">
             <li className="flex gap-1 items-center"><FaInstagram />Instagram</li>
             <li className="flex gap-1 items-center"><CiFacebook />Facebook</li>
             <li className="flex gap-1 items-center"><TbBrandTwitter />Twitter</li>

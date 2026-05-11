@@ -1,15 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CiSearch, CiShoppingCart } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { Link } from "react-router-dom";
-
+import { useAuth } from "../Components/AuthContext";
 import Cart from "./Cart";
 import { useCart } from "../Components/CartContext";
+
 
 const Navbar = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const { cartItems } = useCart();
+
+  const [showMenu, setShowMenu] = useState(false);
+  const { user, logout } = useAuth();
+
+  const menuRef = useRef();
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const totalQty = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -19,44 +38,52 @@ const Navbar = () => {
 
         {/* LOGO */}
         <div>
-          <Link to="/">
+
+          <Link to="/main"
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
+            }} >
             <img
               className="h-20 object-contain"
               src="/roto_logo_transparent.png"
               alt="logo"
             />
           </Link>
+
         </div>
 
         {/* MENU */}
         <ul className="flex gap-10 uppercase font-semibold text-sm">
 
           <li>
-            <Link to="/bags" className="text-black/70 hover:text-black transition">
+            <Link to="/main/bags" className="text-black/70 hover:text-black transition">
               Bags
             </Link>
           </li>
 
           <li>
-            <Link to="/sling" className="text-black/70 hover:text-black transition">
+            <Link to="/main/sling" className="text-black/70 hover:text-black transition">
               Slings
             </Link>
           </li>
 
           <li>
-            <Link to="/accessories" className="text-black/70 hover:text-black transition">
+            <Link to="/main/accessories" className="text-black/70 hover:text-black transition">
               Accessories
             </Link>
           </li>
 
           <li>
-            <Link to="/shoes" className="text-black/70 hover:text-black transition">
+            <Link to="/main/shoes" className="text-black/70 hover:text-black transition">
               Shoes
             </Link>
           </li>
 
           <li>
-            <Link to="/new" className="text-black/70 hover:text-black transition">
+            <Link to="/main/new" className="text-black/70 hover:text-black transition">
               New Deals
             </Link>
           </li>
@@ -88,9 +115,52 @@ const Navbar = () => {
             )}
           </button>
 
-          <button className="bg-zinc-100 hover:bg-zinc-200 p-2 rounded-full transition">
-            <FaRegUser />
-          </button>
+          <div ref={menuRef} className="relative">
+
+            <button
+              onClick={() => setShowMenu(!showMenu)}
+              className="bg-zinc-100 hover:bg-zinc-200 p-2 rounded-full transition"
+            >
+              <FaRegUser />
+            </button>
+
+            {showMenu && (
+              <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg border py-2 z-50">
+
+                {user ? (
+                  <>
+                    <div className="px-4 py-2 border-b">
+                      <p className="text-sm font-semibold">
+                        {user.name}
+                      </p>
+
+                      <p className="text-xs text-gray-500">
+                        {user.email}
+                      </p>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        logout();
+                        setShowMenu(false);
+                      }}
+                      className="w-full text-left px-4 py-2 hover:bg-zinc-100 text-sm"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="block px-4 py-2 hover:bg-zinc-100 text-sm"
+                  >
+                    Login
+                  </Link>
+                )}
+
+              </div>
+            )}
+          </div>
 
         </div>
       </div>

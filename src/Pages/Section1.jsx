@@ -11,7 +11,7 @@ const Section1 = () => {
       text: "SIMPLE AND COMFORTABLE",
       button: "Get the Mini",
       align: "left",
-      route: "/sling", // 👈 added route
+      route: "/main/sling", // 👈 added route
     },
     {
       img: "https://chromeindustries.com/cdn/shop/files/041526_Rim-homepage-Desktop-V2_1.jpg?v=1776289664&width=2000",
@@ -19,7 +19,7 @@ const Section1 = () => {
       text: "WEAR IT, STASH IT",
       button: "Find Your Setup",
       align: "center",
-      route: "/bags", // 👈 added route
+      route: "/main/bags", // 👈 added route
     },
   ];
 

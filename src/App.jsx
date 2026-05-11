@@ -1,47 +1,62 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import New from './Mainlinks/New'
-import Bags from './Mainlinks/Bags'
-import HeaderSlider from './Components/HeaderSlider'
-import Navbar from './Components/Navbar'
-import Section1 from './Pages/Section1'
-import Section2 from './Pages/Section2'
-import Shoes from './Mainlinks/Shoes'
-import Accessories from './Mainlinks/Accessories'
-import Sling from './Mainlinks/Sling'
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import ScrolltoTop from './Components/ScroltoTop'
-import Section3 from './Pages/Section3'
-import Footer from './Components/Footer'
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer";
+
+import Bags from "./Mainlinks/Bags";
+import Shoes from "./Mainlinks/Shoes";
+import Accessories from "./Mainlinks/Accessories";
+import Sling from "./Mainlinks/Sling";
+import New from "./Mainlinks/New";
+
+import Section1 from "./Pages/Section1";
+import Section2 from "./Pages/Section2";
+import Section3 from "./Pages/Section3";
+import MainLayout from "./Components/MainLayout";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <ScrolltoTop />
-
-      <HeaderSlider />
-      <Navbar />
 
       <Routes>
-        <Route path="/" element={
-          <>
-            <Section1 />
-            <Section2 />
-            <Section3 />
-          </>
-        } />
 
-        <Route path="/bags" element={<Bags />} />
-        <Route path="/new" element={<New />} />
-        <Route path="/shoes" element={<Shoes />} />
-        <Route path="/accessories" element={<Accessories />} />
-        <Route path="/sling" element={<Sling />} />
-        
+        {/* 1. HOME SPLASH */}
+        <Route path="/" element={<Home />} />
+
+        {/* 2. LOGIN */}
+        <Route path="/login" element={<Login />} />
+
+        {/* 3. MAIN APP WRAPPER */}
+        <Route path="/main" element={<MainLayout />}>
+
+          {/* HOME INSIDE MAIN */}
+          <Route index element={
+            <>
+              <Section1 />
+              <Section2 />
+              <Section3 />
+            </>
+          } />
+
+          {/* PRODUCT PAGES */}
+          <Route path="bags" element={<Bags />} />
+          <Route path="shoes" element={<Shoes />} />
+          <Route path="accessories" element={<Accessories />} />
+          <Route path="sling" element={<Sling />} />
+          <Route path="new" element={<New />} />
+
+        </Route>
+
+        {/* fallback */}
+        <Route path="*" element={<Navigate to="/" />} />
+
       </Routes>
-      <Footer />
 
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;

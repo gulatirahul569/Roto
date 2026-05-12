@@ -38,7 +38,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
           </h2>
 
           <button onClick={() => setCartOpen(false)}>
-            <IoCloseOutline size={30} />
+            <IoCloseOutline size={30} className="cursor-pointer" />
           </button>
         </div>
 

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useCart } from "../Components/CartContext";
 import { Products } from "../Components/Products";
+import { useNavigate } from "react-router-dom";
 
 const Bags = () => {
   const { addToCart } = useCart();
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const navigate = useNavigate();
 
   const bagProducts = Products.filter((item) => item.newCategory === "Bag");
 
@@ -59,9 +61,12 @@ const Bags = () => {
 
               {/* Quick View Hover Text */}
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                <span className="text-white text-sm tracking-widest bg-black/40 px-4 py-2 rounded-full">
+                <button
+                  onClick={() => navigate(`/main/product/${product.id}`)}
+                  className="text-white text-sm tracking-widest bg-black/40 px-4 py-2 rounded-full cursor-pointer"
+                >
                   QUICK VIEW
-                </span>
+                </button>
               </div>
             </div>
 

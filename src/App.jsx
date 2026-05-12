@@ -6,16 +6,15 @@ import Login from "./Pages/Login";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 
-import Bags from "./Mainlinks/Bags";
-import Shoes from "./Mainlinks/Shoes";
-import Accessories from "./Mainlinks/Accessories";
-import Sling from "./Mainlinks/Sling";
-import New from "./Mainlinks/New";
+
 
 import Section1 from "./Pages/Section1";
 import Section2 from "./Pages/Section2";
 import Section3 from "./Pages/Section3";
 import MainLayout from "./Components/MainLayout";
+import ProductDetails from "./Pages/ProductDetails";
+import CategoryPage from "./Pages/CategoryPage";
+import Wishlist from "./Pages/Wishlist";
 
 const App = () => {
   return (
@@ -35,18 +34,20 @@ const App = () => {
           {/* HOME INSIDE MAIN */}
           <Route index element={
             <>
+              
               <Section1 />
               <Section2 />
               <Section3 />
             </>
           } />
 
-          {/* PRODUCT PAGES */}
-          <Route path="bags" element={<Bags />} />
-          <Route path="shoes" element={<Shoes />} />
-          <Route path="accessories" element={<Accessories />} />
-          <Route path="sling" element={<Sling />} />
-          <Route path="new" element={<New />} />
+          {/* DYNAMIC CATEGORY PAGE */}
+          <Route path="category/:type" element={<CategoryPage />} />
+
+          {/* PRODUCT DETAILS */}
+          <Route path="product/:id" element={<ProductDetails />} />
+
+          <Route path="wishlist" element={<Wishlist />} />
 
         </Route>
 

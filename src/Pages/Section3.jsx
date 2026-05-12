@@ -1,12 +1,11 @@
 import React, { useRef } from "react";
 import { useCart } from "../Components/CartContext";
-import { Products } from "../Components/Products";
-
+import { Products } from "../Data/Products";
+import ProductCard from "../Components/ProductCard";
 
 const Section3 = () => {
-const { addToCart } = useCart(); 
+  const { addToCart } = useCart();
   const sliderRef = useRef(null);
-
 
   const newDrops = Products.filter(
     (item) => item.newCategory === "NF"
@@ -31,9 +30,10 @@ const { addToCart } = useCart();
 
       {/* Heading */}
       <div className="flex flex-col gap-2 mb-10">
-        <h1 className="text-5xl md:text-6xl font-semibold uppercase flex justify-center">
+        <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-widest text-center">
           New Drops
         </h1>
+
         <h2 className="text-md flex justify-center text-gray-600">
           The latest gear, ready to ride.
         </h2>
@@ -59,42 +59,14 @@ const { addToCart } = useCart();
       {/* Slider */}
       <div
         ref={sliderRef}
-        className="flex gap-6 overflow-x-auto scroll-smooth px-6 pb-6 scrollbar-hide"
+        className="flex gap-6 overflow-x-auto scroll-smooth px-6 pb-10 items-stretch scrollbar-hide"
       >
         {newDrops.map((product) => (
           <div
             key={product.id}
-            className="min-w-[320px] max-w-[320px] shrink-0 bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300"
+            className="min-w-[320px] max-w-[320px] shrink-0"
           >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="h-72 w-full object-cover hover:scale-105 transition duration-300"
-            />
-
-            <div className="p-4">
-              <h2 className="text-lg font-bold uppercase flex items-center gap-5">
-                {product.name}
-                <span className="text-sm text-gray-500">
-                  {product.category}
-                </span>
-              </h2>
-               
-
-              <div className="flex justify-between mt-3">
-                <p className="font-black text-xl">
-                  ${product.price}
-                </p>
-                <button
-                  onClick={() => addToCart(product)}
-                  className="bg-black text-white px-5 py-2 rounded-full hover:bg-gray-800 transition"
-                >
-                 Quick Cart +
-                </button>
-
-               
-              </div>
-            </div>
+            <ProductCard product={product} />
           </div>
         ))}
       </div>

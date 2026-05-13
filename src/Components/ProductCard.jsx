@@ -63,7 +63,7 @@ const ProductCard = ({ product }) => {
             </div>
 
             {/* PRODUCT INFO */}
-            <div className="p-5">
+            <div className="p-4">
 
                 <div className="flex justify-between items-center">
 
@@ -88,7 +88,7 @@ const ProductCard = ({ product }) => {
                 <div className="mt-5 flex justify-between items-center">
 
                     <p className="text-2xl font-black">
-                        ${product.price}
+                        ₹{product.price}
                     </p>
 
                     <button

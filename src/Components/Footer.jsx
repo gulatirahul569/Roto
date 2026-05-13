@@ -29,11 +29,11 @@ const Footer = () => {
         <div className="flex flex-col  items-center">
           <h2 className="font-semibold uppercase mb-4 mr-10 ">Shop</h2>
           <ul className=" text-gray-400 text-sm ">
-            <li><Link to="/bags">Bags</Link></li>
-            <li><Link to="/shoes">Shoes</Link></li>
-            <li><Link to="/sling">Slings</Link></li>
-            <li><Link to="/accessories">Accessories</Link></li>
-            <li><Link to="/new">New Arrivals</Link></li>
+            <li><Link to="/main/bags">Bags</Link></li>
+            <li><Link to="/main/shoes">Shoes</Link></li>
+            <li><Link to="/main/sling">Slings</Link></li>
+            <li><Link to="/main/accessories">Accessories</Link></li>
+            <li><Link to="/main/new">New Arrivals</Link></li>
           </ul>
         </div>
 

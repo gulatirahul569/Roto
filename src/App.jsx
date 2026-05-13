@@ -15,6 +15,7 @@ import MainLayout from "./Components/MainLayout";
 import ProductDetails from "./Pages/ProductDetails";
 import CategoryPage from "./Pages/CategoryPage";
 import Wishlist from "./Pages/Wishlist";
+import Checkout from "./Pages/Checkout";
 
 const App = () => {
   return (
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="product/:id" element={<ProductDetails />} />
 
           <Route path="wishlist" element={<Wishlist />} />
+          <Route path="checkout" element={<Checkout />} />
 
         </Route>
 

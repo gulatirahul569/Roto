@@ -1,8 +1,12 @@
 import React from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { useCart } from "../Components/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const Cart = ({ cartOpen, setCartOpen }) => {
+
+  const navigate = useNavigate();
+
   const {
     cartItems,
     increaseQty,
@@ -20,16 +24,14 @@ const Cart = ({ cartOpen, setCartOpen }) => {
       {/* Overlay */}
       <div
         onClick={() => setCartOpen(false)}
-        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 ${
-          cartOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
+        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 ${cartOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          }`}
       />
 
       {/* Drawer */}
       <div
-        className={`fixed top-2 right-0 rounded-3xl h-screen w-96 bg-gray-200  z-50 shadow-2xl flex flex-col transition-transform duration-300 ${
-          cartOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-2 right-0 rounded-3xl h-screen w-96 bg-gray-200  z-50 shadow-2xl flex flex-col transition-transform duration-300 ${cartOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b">
@@ -68,7 +70,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
                   </p>
 
                   <p className="font-bold mt-1">
-                    ${item.price}
+                    ₹{item.price}
                   </p>
 
                   {/* Controls */}
@@ -111,10 +113,16 @@ const Cart = ({ cartOpen, setCartOpen }) => {
         <div className="border-t p-6 space-y-4">
           <div className="flex justify-between text-lg font-semibold">
             <span>Subtotal</span>
-            <span>${subtotal}</span>
+            <span>₹{subtotal}</span>
           </div>
 
-          <button className="w-full bg-black text-white py-4 uppercase">
+          <button
+            onClick={() => {
+              setCartOpen(false);
+              navigate("/main/checkout");
+            }}
+            className="w-full bg-black text-white py-4 uppercase"
+          >
             Checkout
           </button>
         </div>

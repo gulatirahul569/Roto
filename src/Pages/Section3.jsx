@@ -1,10 +1,8 @@
 import React, { useRef } from "react";
-import { useCart } from "../Components/CartContext";
 import { Products } from "../Data/Products";
 import ProductCard from "../Components/ProductCard";
 
 const Section3 = () => {
-  const { addToCart } = useCart();
   const sliderRef = useRef(null);
 
   const newDrops = Products.filter(
@@ -26,7 +24,7 @@ const Section3 = () => {
   };
 
   return (
-    <div className="py-20">
+    <div className="py-20 relative">
 
       {/* Heading */}
       <div className="flex flex-col gap-2 mb-10">
@@ -39,38 +37,45 @@ const Section3 = () => {
         </h2>
       </div>
 
-      {/* Arrows */}
-      <div className="flex justify-end gap-4 px-6 mb-4">
+      {/* SLIDER WRAPPER */}
+      <div className="relative">
+
+        {/* LEFT ARROW (CENTERED ON LEFT SIDE) */}
         <button
           onClick={scrollLeft}
-          className="px-4 py-2 border rounded-full hover:bg-black hover:text-white transition"
+          className="absolute left-2 top-1/3 -translate-y-1/2 z-10
+          bg-white shadow-lg px-4 py-3 rounded-full text-2xl
+          hover:scale-110 transition"
         >
           ←
         </button>
 
+        {/* RIGHT ARROW (CENTERED ON RIGHT SIDE) */}
         <button
           onClick={scrollRight}
-          className="px-4 py-2 border rounded-full hover:bg-black hover:text-white transition"
+          className="absolute right-2 top-1/3 -translate-y-1/2 z-10
+          bg-gray-300 shadow-lg px-4 py-3 rounded-full text-2xl
+          hover:scale-105 transition"
         >
           →
         </button>
-      </div>
 
-      {/* Slider */}
-      <div
-        ref={sliderRef}
-        className="flex gap-6 overflow-x-auto scroll-smooth px-6 pb-10 items-stretch scrollbar-hide"
-      >
-        {newDrops.map((product) => (
-          <div
-            key={product.id}
-            className="min-w-[320px] max-w-[320px] shrink-0"
-          >
-            <ProductCard product={product} />
-          </div>
-        ))}
-      </div>
+        {/* SCROLLABLE PRODUCTS */}
+        <div
+          ref={sliderRef}
+          className="flex gap-6 overflow-x-auto scroll-smooth px-6 pb-10 items-stretch scrollbar-hide"
+        >
+          {newDrops.map((product) => (
+            <div
+              key={product.id}
+              className="min-w-55 max-w-70  shrink-0"
+            >
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
 
+      </div>
     </div>
   );
 };

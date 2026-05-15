@@ -35,7 +35,7 @@ const Login = () => {
             email,
         });
 
-        navigate("/main");
+        navigate("/");
     };
 
     return (

@@ -7,14 +7,16 @@ import HeaderSlider from "./HeaderSlider";
 const MainLayout = () => {
   const location = useLocation();
 
-  const showSlider = location.pathname === "/main";
+   const showSlider =
+    location.pathname === "/" ||
+    location.pathname.includes("/category");
 
   return (
     <>
       {showSlider && <HeaderSlider />}
       <Navbar />
 
-      {/* SHOW ONLY ON /main */}
+      {/* SHOW ONLY ON  */}
 
       <Outlet />
 

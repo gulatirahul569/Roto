@@ -5,6 +5,7 @@ export const categoryData = {
     subtitle: "Travel • Laptop • Casual",
     productType: "bags",
     filters: ["All", "Travel", "Laptop", "Casual"],
+    banner: "/Bagcover.jpg"
   },
 
   shoes: {
@@ -12,6 +13,8 @@ export const categoryData = {
     subtitle: "Sports • Casual • Premium",
     productType: "shoes",
     filters: ["All", "Sports", "Casual", "Premium"],
+    banner: "/Shoecover.jpg"
+    
   },
 
   sling: {
@@ -19,6 +22,8 @@ export const categoryData = {
     subtitle: "Minimal • Premium • Casual",
     productType: "sling",
     filters: ["All", "Casual", "Premium", "Minimal"],
+    banner:"/slingcover.jpg"
+
   },
 
   accessories: {
@@ -26,6 +31,7 @@ export const categoryData = {
     subtitle: "Decor • Premium • Casual",
     productType: "accessories",
     filters: ["All", "Decor", "Premium", "Casual"],
+    banner:"/Accessorycover.jpg"
   },
 
   new: {
@@ -33,6 +39,7 @@ export const categoryData = {
     subtitle: "Fresh arrivals and featured products",
     productType: "new",
     filters: ["All", "Bag", "Shoes", "Sling", "Accessories"],
+    banner:"/newcover.jpg"
   },
 
 };

@@ -16,6 +16,7 @@ import ProductDetails from "./Pages/ProductDetails";
 import CategoryPage from "./Pages/CategoryPage";
 import Wishlist from "./Pages/Wishlist";
 import Checkout from "./Pages/Checkout";
+import Section4 from "./Pages/Section4";
 
 const App = () => {
   return (
@@ -24,13 +25,13 @@ const App = () => {
       <Routes>
 
         {/* 1. HOME SPLASH */}
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home />} /> */}
 
         {/* 2. LOGIN */}
         <Route path="/login" element={<Login />} />
 
         {/* 3. MAIN APP WRAPPER */}
-        <Route path="/main" element={<MainLayout />}>
+        <Route path="/" element={<MainLayout />}>
 
           {/* HOME INSIDE MAIN */}
           <Route index element={
@@ -39,6 +40,7 @@ const App = () => {
               <Section1 />
               <Section2 />
               <Section3 />
+              <Section4 />
             </>
           } />
 

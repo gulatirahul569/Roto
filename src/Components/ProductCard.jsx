@@ -52,7 +52,7 @@ const ProductCard = ({ product }) => {
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition pointer-events-none">
 
                     <button
-                        onClick={() => navigate(`/main/product/${product.id}`)}
+                        onClick={() => navigate(`/product/${product.id}`)}
                         className="pointer-events-auto text-white text-sm tracking-widest bg-black/40 px-4 py-2 rounded-full cursor-pointer"
                     >
                         QUICK VIEW
@@ -67,7 +67,7 @@ const ProductCard = ({ product }) => {
 
                 <div className="flex justify-between items-center">
 
-                    <h2 className="text-xl font-bold uppercase">
+                    <h2 className="text-lg  font-semibold uppercase">
                         {product.name}
                     </h2>
 
@@ -87,7 +87,7 @@ const ProductCard = ({ product }) => {
 
                 <div className="mt-5 flex justify-between items-center">
 
-                    <p className="text-2xl font-black">
+                    <p className="text-xl font-black">
                         ₹{product.price}
                     </p>
 

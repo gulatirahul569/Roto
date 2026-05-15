@@ -72,7 +72,7 @@ const ProductDetails = () => {
                         <button
                             onClick={() =>
                                 navigate(
-                                    `/main/category/${product.newCategory}`
+                                    `/category/${product.newCategory}`
                                 )
                             }
                             className="bg-black text-white px-5 py-2 rounded-full text-sm hover:bg-gray-800 transition"
@@ -92,7 +92,7 @@ const ProductDetails = () => {
                         {/* LEFT ARROW */}
                         <button
                             onClick={() =>
-                                navigate(`/main/product/${prevProduct.id}`)
+                                navigate(`/product/${prevProduct.id}`)
                             }
                             className="absolute left-5 top-1/2 -translate-y-1/2 bg-white shadow-lg w-12 h-12 rounded-full text-2xl hover:scale-110 transition z-20"
                         >
@@ -102,7 +102,7 @@ const ProductDetails = () => {
                         {/* RIGHT ARROW */}
                         <button
                             onClick={() =>
-                                navigate(`/main/product/${nextProduct.id}`)
+                                navigate(`/product/${nextProduct.id}`)
                             }
                             className="absolute right-5 top-1/2 -translate-y-1/2 bg-white shadow-lg w-12 h-12 rounded-full text-2xl hover:scale-110 transition z-20"
                         >

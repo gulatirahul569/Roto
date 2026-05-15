@@ -5,17 +5,17 @@ import { CiCircleChevRight } from "react-icons/ci";
 const cards = [
   {
     title: "Sling",
-    link: "/main/category/sling",
+    link: "/category/sling",
     img: "https://chromeindustries.com/cdn/shop/files/Kadet_Max_Steel_Blue_SQ_HP_1.jpg?v=1777073141&width=1200",
   },
   {
     title: "Gear up Deal",
-    link: "/main/category/accessories",
+    link: "/category/accessories",
     img: "https://chromeindustries.com/cdn/shop/files/HP_Accessories_sm_sq_2_1.jpg?v=1769108394&width=1200",
   },
   {
     title: "Pick It UP",
-    link: "/main/category/bags",
+    link: "/category/bags",
     img: "https://chromeindustries.com/cdn/shop/files/hp_pack_it_up_20L_1.jpg?v=1777073743&width=1200",
   },
 ];

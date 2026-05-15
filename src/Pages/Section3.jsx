@@ -6,7 +6,7 @@ const Section3 = () => {
   const sliderRef = useRef(null);
 
   const newDrops = Products.filter(
-    (item) => item.newCategory === "NF"
+    (item) => item.newCategory === "new"
   );
 
   const scrollLeft = () => {
@@ -24,7 +24,7 @@ const Section3 = () => {
   };
 
   return (
-    <div className="py-20 relative">
+    <div className="py-10 relative">
 
       {/* Heading */}
       <div className="flex flex-col gap-2 mb-10">
@@ -63,7 +63,7 @@ const Section3 = () => {
         {/* SCROLLABLE PRODUCTS */}
         <div
           ref={sliderRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth px-6 pb-10 items-stretch scrollbar-hide"
+          className="flex gap-6 overflow-x-auto scroll-smooth px-6 pb-6 items-stretch scrollbar-hide"
         >
           {newDrops.map((product) => (
             <div

@@ -119,7 +119,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
           <button
             onClick={() => {
               setCartOpen(false);
-              navigate("/main/checkout");
+              navigate("/checkout");
             }}
             className="w-full bg-black text-white py-4 uppercase"
           >

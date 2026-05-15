@@ -23,8 +23,8 @@ const Navbar = () => {
 
   const filteredProducts = searchTerm
     ? Products.filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     : [];
 
   const [showMenu, setShowMenu] = useState(false);
@@ -63,7 +63,7 @@ const Navbar = () => {
         {/* LOGO */}
         <div>
           <Link
-            to="/main"
+            to=""
             onClick={() =>
               window.scrollTo({ top: 0, behavior: "smooth" })
             }
@@ -77,34 +77,62 @@ const Navbar = () => {
         </div>
 
         {/* MENU */}
+        {/* MENU */}
         <ul className="flex gap-10 uppercase font-semibold text-sm">
 
           <li>
-            <Link to="/main/category/bags" className="text-black/70 hover:text-black transition">
+            <Link
+              to="/category/bags"
+              className="text-black/70 hover:text-black transition"
+               onClick={() =>
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
+            >
               Bags
             </Link>
           </li>
 
           <li>
-            <Link to="/main/category/sling" className="text-black/70 hover:text-black transition">
+            <Link
+              to="/category/sling"
+              className="text-black/70 hover:text-black transition"
+               onClick={() =>
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
+            >
               Slings
             </Link>
           </li>
 
           <li>
-            <Link to="/main/category/accessories" className="text-black/70 hover:text-black transition">
+            <Link
+              to="/category/accessories"
+              className="text-black/70 hover:text-black transition"
+               onClick={() =>
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
+            >
               Accessories
             </Link>
           </li>
 
           <li>
-            <Link to="/main/category/shoes" className="text-black/70 hover:text-black transition">
+            <Link
+              to="/category/shoes"
+              className="text-black/70 hover:text-black transition"
+               onClick={() =>
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
+            >
               Shoes
             </Link>
           </li>
 
           <li>
-            <Link to="/main/category/new" className="text-black/70 hover:text-black transition">
+            <Link
+              to="/category/new"
+              className="text-black/70 hover:text-black transition"
+            >
               New Deals
             </Link>
           </li>
@@ -116,7 +144,7 @@ const Navbar = () => {
 
           {/* ❤️ WISHLIST BUTTON (REPLACED $) */}
           <Link
-            to="/main/wishlist"
+            to="/wishlist"
             className="relative bg-zinc-100 hover:bg-zinc-200 p-2 rounded-full transition"
           >
             <FaHeart />
@@ -158,7 +186,7 @@ const Navbar = () => {
                       <div
                         key={item.id}
                         onClick={() => {
-                          navigate(`/main/product/${item.id}`);
+                          navigate(`/product/${item.id}`);
                           setSearchOpen(false);
                           setSearchTerm("");
                         }}

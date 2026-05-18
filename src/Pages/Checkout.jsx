@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useCart } from "../Components/CartContext";
-import { useAuth } from "../Components/AuthContext";
+import { useCart } from "../Context/CartContext";
+import { useAuth } from "../Context/AuthContext";
 import {
   FaLock,
   FaTruck,

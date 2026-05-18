@@ -1,6 +1,6 @@
 import React from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { useCart } from "../Components/CartContext";
+import { useCart } from "../Context/CartContext";
 import { useNavigate } from "react-router-dom";
 
 const Cart = ({ cartOpen, setCartOpen }) => {

@@ -1,12 +1,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../Components/CartContext";
-import { useWishlist } from "../Components/WishlistContext";
+import { useCart } from "../Context/CartContext";
+import { useWishlist } from "../Context/WishlistContext";
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
-    const { addToCart } = useCart();
+    const {
+        cartItems,
+        addToCart,
+        increaseQty,
+        decreaseQty,
+    } = useCart();
     const { toggleWishlist, isInWishlist } = useWishlist();
+
+    const cartItem = cartItems.find(
+        (item) => item.id === product.id
+    );
 
     // ⭐ STAR RENDER FUNCTION
     const renderStars = (rating = 0) => {
@@ -91,12 +100,43 @@ const ProductCard = ({ product }) => {
                         ₹{product.price}
                     </p>
 
-                    <button
-                        onClick={() => addToCart(product)}
-                        className="bg-black text-white px-5 py-2 rounded-full hover:bg-gray-800 transition"
-                    >
-                        Add
-                    </button>
+                    {cartItem ? (
+
+                        <div className="flex items-center gap-3">
+
+                            {/* minus */}
+                            <button
+                                onClick={() => decreaseQty(product.id)}
+                                className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-100 transition"
+                            >
+                                -
+                            </button>
+
+                            {/* quantity */}
+                            <span className="font-semibold min-w-2 text-center">
+                                {cartItem.quantity}
+                            </span>
+
+                            {/* plus */}
+                            <button
+                                onClick={() => increaseQty(product.id)}
+                                className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-100 transition"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    ) : (
+
+                        <button
+                            onClick={() => addToCart(product)}
+                            className="bg-black text-white px-5 py-2 rounded-full hover:bg-gray-800 transition"
+                        >
+                            Add
+                        </button>
+
+                    )}
 
                 </div>
 

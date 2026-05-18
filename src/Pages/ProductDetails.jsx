@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Products } from "../Data/Products";
-import { useCart } from "../Components/CartContext";
-import { useWishlist } from "../Components/WishlistContext";
+import { useCart } from "../Context/CartContext";
+import { useWishlist } from "../Context/WishlistContext";
 
 const ProductDetails = () => {
     const { id } = useParams();

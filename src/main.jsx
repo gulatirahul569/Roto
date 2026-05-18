@@ -2,9 +2,10 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
-import { CartProvider } from './Components/CartContext.jsx'
-import { AuthProvider } from './Components/AuthContext.jsx'
-import { WishlistProvider } from "./Components/WishlistContext.jsx";
+import { AuthProvider } from './Context/AuthContext.jsx'
+import { WishlistProvider } from './Context/WishlistContext.jsx'
+import { CartProvider } from './Context/CartContext.jsx'
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

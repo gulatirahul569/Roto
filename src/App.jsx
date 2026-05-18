@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import Home from "./Pages/Home";
+
 import Login from "./Pages/Login";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
@@ -17,16 +17,14 @@ import CategoryPage from "./Pages/CategoryPage";
 import Wishlist from "./Pages/Wishlist";
 import Checkout from "./Pages/Checkout";
 import Section4 from "./Pages/Section4";
+import ScrollToTop from "./Components/ScroltoTop";
 
 const App = () => {
   return (
     <BrowserRouter>
-
+      <ScrollToTop />
       <Routes>
-
-        {/* 1. HOME SPLASH */}
-        {/* <Route path="/" element={<Home />} /> */}
-
+        
         {/* 2. LOGIN */}
         <Route path="/login" element={<Login />} />
 

@@ -3,7 +3,6 @@ import { createContext, useContext, useState, useEffect } from "react";
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-
   // LOAD CART FROM LOCAL STORAGE
   const [cartItems, setCartItems] = useState(() => {
     const savedCart = localStorage.getItem("cartItems");
@@ -19,53 +18,49 @@ export const CartProvider = ({ children }) => {
   // ADD TO CART
   const addToCart = (product) => {
     setCartItems((prevItems) => {
-
-      const existingItem = prevItems.find(
-        (item) => item.id === product.id
-      );
+      const existingItem = prevItems.find((item) => item._id === product._id);
 
       if (existingItem) {
         return prevItems.map((item) =>
-          item.id === product.id
+          item._id === product._id
             ? { ...item, quantity: item.quantity + 1 }
-            : item
+            : item,
         );
       }
 
       return [...prevItems, { ...product, quantity: 1 }];
     });
   };
-
   // INCREASE QTY
   const increaseQty = (id) => {
-    setCartItems((items) =>
-      items.map((item) =>
-        item.id === id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      )
-    );
-  };
+  setCartItems((items) =>
+    items.map((item) =>
+      item._id === id
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    )
+  );
+};
 
   // DECREASE QTY
   const decreaseQty = (id) => {
-    setCartItems((items) =>
-      items
-        .map((item) =>
-          item.id === id
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
-        .filter((item) => item.quantity > 0)
-    );
-  };
+  setCartItems((items) =>
+    items
+      .map((item) =>
+        item._id === id
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+      .filter((item) => item.quantity > 0)
+  );
+};
 
   // REMOVE ITEM
   const removeFromCart = (id) => {
-    setCartItems((items) =>
-      items.filter((item) => item.id !== id)
-    );
-  };
+  setCartItems((items) =>
+    items.filter((item) => item._id !== id)
+  );
+};
 
   // CLEAR CART
   const clearCart = () => {

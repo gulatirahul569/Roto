@@ -12,7 +12,6 @@ const Section3 = () => {
     const getProducts = async () => {
       try {
         const res = await axios.get("http://localhost:5000/api/products");
-        console.log("API RESPONSE:", res.data); // 👈 ADD THIS
         setProducts(res.data);
       } catch (err) {
         console.log("Error fetching products:", err);
@@ -49,7 +48,7 @@ const Section3 = () => {
 
       {/* HEADING */}
       <div className="flex flex-col gap-2 mb-10">
-        <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-widest text-center">
+        <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-widest text-center">
           New Drops
         </h1>
 
@@ -89,8 +88,8 @@ const Section3 = () => {
           {newDrops.length > 0 ? (
             newDrops.map((product) => (
               <div
-                key={product._id || product.id}
-                className="min-w-55 max-w-70 shrink-0"
+                key={product._id}
+                className="min-w-80 max-w-80 shrink-0"
               >
                 <ProductCard product={product} />
               </div>

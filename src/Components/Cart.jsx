@@ -4,7 +4,6 @@ import { useCart } from "../Context/CartContext";
 import { useNavigate } from "react-router-dom";
 
 const Cart = ({ cartOpen, setCartOpen }) => {
-
   const navigate = useNavigate();
 
   const {
@@ -24,14 +23,16 @@ const Cart = ({ cartOpen, setCartOpen }) => {
       {/* Overlay */}
       <div
         onClick={() => setCartOpen(false)}
-        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 ${cartOpen ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
+        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 ${
+          cartOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
       />
 
       {/* Drawer */}
       <div
-        className={`fixed top-2 right-0 rounded-3xl h-screen w-96 bg-gray-200  z-50 shadow-2xl flex flex-col transition-transform duration-300 ${cartOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`fixed top-2 right-0 rounded-3xl h-screen w-96 bg-gray-200 z-50 shadow-2xl flex flex-col transition-transform duration-300 ${
+          cartOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b">
@@ -53,15 +54,17 @@ const Cart = ({ cartOpen, setCartOpen }) => {
           ) : (
             cartItems.map((item) => (
               <div
-                key={item.id}
+                key={item._id}
                 className="flex gap-4 border-b pb-4"
               >
+                {/* IMAGE */}
                 <img
                   src={item.image}
                   alt={item.name}
                   className="w-20 h-20 object-cover rounded-lg"
                 />
 
+                {/* DETAILS */}
                 <div className="flex-1">
                   <h3 className="font-semibold">{item.name}</h3>
 
@@ -73,22 +76,23 @@ const Cart = ({ cartOpen, setCartOpen }) => {
                     ₹{item.price}
                   </p>
 
-                  {/* Controls */}
+                  {/* CONTROLS */}
                   <div className="flex items-center gap-3 mt-2">
 
                     {/* minus */}
                     <button
-                      onClick={() => decreaseQty(item.id)}
+                      onClick={() => decreaseQty(item._id)}
                       className="px-2 border"
                     >
                       -
                     </button>
 
+                    {/* quantity */}
                     <span>{item.quantity}</span>
 
                     {/* plus */}
                     <button
-                      onClick={() => increaseQty(item.id)}
+                      onClick={() => increaseQty(item._id)}
                       className="px-2 border"
                     >
                       +
@@ -96,7 +100,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
 
                     {/* remove */}
                     <button
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() => removeFromCart(item._id)}
                       className="text-red-500 ml-4 text-sm"
                     >
                       Remove
@@ -109,7 +113,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
           )}
         </div>
 
-        {/* Footer */}
+        {/* FOOTER */}
         <div className="border-t p-6 space-y-4">
           <div className="flex justify-between text-lg font-semibold">
             <span>Subtotal</span>

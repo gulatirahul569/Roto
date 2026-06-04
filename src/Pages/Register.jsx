@@ -1,42 +1,36 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../Context/AuthContext";
+import axios from "axios";
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { email, password } = formData;
-
-    if (!email || !password) {
-      alert("Please fill all fields");
-      return;
-    }
-
     try {
-      await login({ email, password }); // ✅ FIXED
-      navigate("/");
+      await axios.post("http://localhost:5000/api/auth/register", formData);
+
+      alert("Account created successfully");
+      navigate("/login");
     } catch (err) {
-      alert(err.response?.data?.msg || "Login failed");
+      alert(err.response?.data?.message || "Register failed");
     }
   };
+
   return (
     <div className="min-h-screen flex items-center justify-center relative">
+
       {/* DESKTOP BACKGROUND */}
       <div
         className="absolute inset-0 bg-cover bg-center hidden sm:block"
@@ -58,7 +52,7 @@ const Login = () => {
       {/* DARK OVERLAY */}
       <div className="absolute inset-0 bg-black/50"></div>
 
-      {/* LOGIN BOX */}
+      {/* REGISTER BOX */}
       <form
         onSubmit={handleSubmit}
         className="
@@ -71,9 +65,24 @@ const Login = () => {
           shadow-2xl
         "
       >
+
         <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6 sm:mb-8 text-white">
-          Login
+          Register
         </h2>
+
+        {/* NAME */}
+        <div className="mb-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter your name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg
+              bg-white/20 text-white placeholder:text-white/70
+              border border-white/30 outline-none"
+          />
+        </div>
 
         {/* EMAIL */}
         <div className="mb-4">
@@ -114,22 +123,23 @@ const Login = () => {
             transition
           "
         >
-          Login
+          Register
         </button>
 
-        {/* SIGN UP LINK (NEW ADDED ONLY) */}
+        {/* LOGIN LINK */}
         <p className="text-center text-white mt-5 text-sm">
-          Don’t have an account?{" "}
+          Already have an account?{" "}
           <Link
-            to="/register"
+            to="/login"
             className="text-blue-300 hover:underline font-medium"
           >
-            Sign up
+            Login
           </Link>
         </p>
+
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;

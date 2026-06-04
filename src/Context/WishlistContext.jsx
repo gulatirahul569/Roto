@@ -13,10 +13,10 @@ export const WishlistProvider = ({ children }) => {
 
   const toggleWishlist = (product) => {
     setWishlist((prev) => {
-      const exists = prev.find((item) => item.id === product.id);
+      const exists = prev.find((item) => item._id === product._id);
 
       if (exists) {
-        return prev.filter((item) => item.id !== product.id);
+        return prev.filter((item) => item._id !== product._id);
       } else {
         return [...prev, product];
       }
@@ -24,7 +24,7 @@ export const WishlistProvider = ({ children }) => {
   };
 
   const isInWishlist = (id) => {
-    return wishlist.some((item) => item.id === id);
+    return wishlist.some((item) => item._id === id);
   };
 
   return (

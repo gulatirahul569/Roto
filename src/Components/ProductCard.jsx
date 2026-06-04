@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
     const { toggleWishlist, isInWishlist } = useWishlist();
 
     const cartItem = cartItems.find(
-        (item) => item.id === product.id
+        (item) => item._id === product._id
     );
 
     // ⭐ STAR RENDER FUNCTION
@@ -35,7 +35,7 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <div className="group relative bg-white/80 backdrop-blur-md border border-white/20 rounded-3xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+        <div className="group relative  bg-white/80 backdrop-blur-md border border-white/20 rounded-3xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 ">
 
             {/* IMAGE SECTION */}
             <div className="relative overflow-hidden">
@@ -54,14 +54,14 @@ const ProductCard = ({ product }) => {
                     onClick={() => toggleWishlist(product)}
                     className="absolute top-3 right-3 bg-white/80 backdrop-blur-md rounded-full w-10 h-10 flex items-center justify-center text-xl shadow-md hover:scale-110 transition"
                 >
-                    {isInWishlist(product.id) ? "❤️" : "🤍"}
+                    {isInWishlist(product._id) ? "❤️" : "🤍"}
                 </button>
 
                 {/* QUICK VIEW */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition pointer-events-none">
 
                     <button
-                        onClick={() => navigate(`/product/${product.id}`)}
+                        onClick={() => navigate(`/product/${product._id}`)}
                         className="pointer-events-auto text-white text-sm tracking-widest bg-black/40 px-4 py-2 rounded-full cursor-pointer"
                     >
                         QUICK VIEW
@@ -76,7 +76,7 @@ const ProductCard = ({ product }) => {
 
                 <div className="flex justify-between items-center">
 
-                    <h2 className="text-lg  font-semibold uppercase">
+                    <h2 className="text-lg text-nowrap  font-semibold uppercase">
                         {product.name}
                     </h2>
 
@@ -106,7 +106,7 @@ const ProductCard = ({ product }) => {
 
                             {/* minus */}
                             <button
-                                onClick={() => decreaseQty(product.id)}
+                                onClick={() => decreaseQty(product._id)}
                                 className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-100 transition"
                             >
                                 -
@@ -119,7 +119,7 @@ const ProductCard = ({ product }) => {
 
                             {/* plus */}
                             <button
-                                onClick={() => increaseQty(product.id)}
+                                onClick={() => increaseQty(product._id)}
                                 className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-100 transition"
                             >
                                 +

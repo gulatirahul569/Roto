@@ -1,34 +1,50 @@
 import React, { createContext, useContext, useState } from "react";
+import { loginUser, registerUser } from "../api/authApi";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
 
-  // GET USER FROM LOCAL STORAGE
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem("user");
+  const [token, setToken] = useState(
+    localStorage.getItem("token") || ""
+  );
 
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+  // REGISTER
+  const register = async (formData) => {
+    const { data } = await registerUser(formData);
+
+    setUser(data.user);
+    setToken(data.token);
+
+    localStorage.setItem("user", JSON.stringify(data.user));
+    localStorage.setItem("token", data.token);
+  };
 
   // LOGIN
-  const login = (userData) => {
-    setUser(userData);
+  const login = async (formData) => {
+    const { data } = await loginUser(formData);
 
-    // SAVE USER
-    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(data.user);
+    setToken(data.token);
+
+    localStorage.setItem("user", JSON.stringify(data.user));
+    localStorage.setItem("token", data.token);
   };
 
   // LOGOUT
   const logout = () => {
     setUser(null);
+    setToken("");
 
-    // REMOVE USER
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, register, logout, token }}>
       {children}
     </AuthContext.Provider>
   );

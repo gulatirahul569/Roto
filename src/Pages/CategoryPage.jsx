@@ -16,6 +16,16 @@ const CategoryPage = () => {
   const [selectedPrice, setSelectedPrice] = useState("All");
   const [showFilters, setShowFilters] = useState(false);
 
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState("Newest");
+
+  const options = [
+    "Newest",
+    "Price: Low to High",
+    "Price: High to Low",
+    "Top Rated",
+  ];
+
   // FETCH PRODUCTS
   useEffect(() => {
     const loadProducts = async () => {
@@ -44,6 +54,7 @@ const CategoryPage = () => {
     setSortOption("Newest");
     setSelectedPrice("All");
     setShowFilters(false);
+    setSelected("Newest");
   }, [type]);
 
   if (!data) {
@@ -93,10 +104,13 @@ const CategoryPage = () => {
     switch (sortOption) {
       case "Price: Low to High":
         return sorted.sort((a, b) => a.price - b.price);
+
       case "Price: High to Low":
         return sorted.sort((a, b) => b.price - a.price);
+
       case "Top Rated":
         return sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+
       default:
         return sorted;
     }
@@ -136,7 +150,7 @@ const CategoryPage = () => {
         </button>
       </div>
 
-      {/* MOBILE FILTERS (DOWNWARD) */}
+      {/* MOBILE FILTERS */}
       <div
         className={`lg:hidden px-4 overflow-hidden transition-all duration-300 ${
           showFilters ? "max-h-150 opacity-100 mt-4" : "max-h-0 opacity-0"
@@ -252,26 +266,47 @@ const CategoryPage = () => {
         <div className="flex-1 px-4 md:px-8 py-6">
 
           {/* TOP BAR */}
-          <div className="flex justify-between mb-6 gap-2">
-            <div>
-              <h2 className="text-2xl font-bold uppercase">
-                {selectedFilter}
+          <div className="flex justify-between items-center gap-3 mb-6">
+
+            <div className="flex-1 min-w-0">
+              <h2 className="text-3xl font-bold uppercase">
+                Products
               </h2>
-              <p className="text-sm text-zinc-500">
+              <p className="text-gray-500">
                 Showing {finalProducts.length} products
               </p>
             </div>
 
-            <select
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-              className="border px-2 py-2 max-w-40 truncate"
-            >
-              <option>Newest</option>
-              <option>Price: Low to High</option>
-              <option>Price: High to Low</option>
-              <option>Top Rated</option>
-            </select>
+            <div className="relative shrink-0 w-32 sm:w-40 md:w-56">
+              <button
+                onClick={() => setOpen(!open)}
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white text-left flex justify-between items-center "
+              >
+                <span className="truncate">{selected}</span>
+                <span>▼</span>
+              </button>
+
+              {open && (
+                <div className="absolute top-full right-0 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-50 overflow-hidden">
+
+                  {options.map((option) => (
+                    <button
+                      key={option}
+                      onClick={() => {
+                        setSelected(option);
+                        setSortOption(option);
+                        setOpen(false);
+                      }}
+                      className="block w-full text-left px-4 py-3 hover:bg-gray-100"
+                    >
+                      {option}
+                    </button>
+                  ))}
+
+                </div>
+              )}
+            </div>
+
           </div>
 
           {/* GRID */}

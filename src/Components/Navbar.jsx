@@ -189,6 +189,16 @@ const Navbar = () => {
                         <p className="text-gray-600 text-xs">{user.email}</p>
                       </div>
 
+                      {user.role === "admin" && (
+                        <Link
+                          to="/admin"
+                          onClick={() => setShowMenu(false)}
+                          className="block px-4 py-2 hover:bg-gray-100"
+                        >
+                          Admin Panel
+                        </Link>
+                      )}
+
                       <button
                         onClick={() => {
                           logout();

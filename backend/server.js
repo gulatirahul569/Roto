@@ -2,8 +2,10 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
-
+import orderRoutes from "./routes/orderRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js"
 import AuthRoutes from "./routes/AuthRoutes.js";
+import userRoutes from "./routes/userRoutes.js"
 import productRoutes from "./routes/productRoutes.js";
 
 dotenv.config();
@@ -20,12 +22,14 @@ app.use("/api/products", productRoutes);
 app.use("/api/auth", AuthRoutes); // ✅ ADD THIS
 
 app.use("/api/products", productRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/users", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend Running");
 });
 
-
+app.use("/api/orders", orderRoutes);
 
 const PORT = 5000;
 

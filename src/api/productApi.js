@@ -19,3 +19,47 @@ export const fetchProductById = async (id) => {
   const res = await axios.get(`${API}/${id}`);
   return res.data;
 };
+// create new product
+export const createProduct = async (
+  productData,
+  token
+) => {
+  const res = await axios.post(
+    `${API}/create`,
+    productData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return res.data;
+};
+//update
+export const updateProduct = async (id, data, token) => {
+  const res = await axios.put(
+    `http://localhost:5000/api/products/${id}`,
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return res.data;
+};
+//delete
+export const deleteProduct = async (id, token) => {
+  const res = await axios.delete(
+    `http://localhost:5000/api/products/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return res.data;
+};

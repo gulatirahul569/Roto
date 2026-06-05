@@ -17,6 +17,13 @@ import CategoryPage from "./Pages/CategoryPage";
 import Wishlist from "./Pages/Wishlist";
 import Checkout from "./Pages/Checkout";
 import ScrollToTop from "./Components/ScroltoTop";
+import AdminUsers from "./Admin/AdminUsers";
+import AdminLayout from "./Admin/AdminLayout";
+import AdminDashboard from "./Admin/AdminDashboard";
+import AdminProducts from "./Admin/AdminProducts";
+import AdminAddProduct from "./Admin/AdminAddProduct";
+import AdminOrders from "./Admin/AdminOrders";
+import AdminSettings from "./Admin/AdminSettings";
 
 const App = () => {
   const { user } = useAuth(); // ✅ REAL reactive auth
@@ -38,6 +45,22 @@ const App = () => {
           path="/register"
           element={user ? <Navigate to="/" /> : <Register />}
         />
+        <Route
+          path="/admin"
+          element={
+            user?.role === "admin"
+              ? <AdminLayout />
+              : <Navigate to="/" />
+          }
+        >
+          <Route index element={<AdminDashboard />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="add-product" element={<AdminAddProduct />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="users" element={<AdminUsers />} /> 
+          <Route path="settings" element={<AdminSettings />} />
+          
+        </Route>
 
         {/* MAIN LAYOUT */}
         <Route path="/" element={<MainLayout />}>

@@ -30,28 +30,34 @@ const AdminDashboard = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const fetch = async () => {
-      const res = await getAdminStats(token);
-      setData(res);
+    const fetchData = async () => {
+      try {
+        const res = await getAdminStats(token);
+        setData(res);
+      } catch (err) {
+        console.error(err);
+      }
     };
 
-    if (token) fetch();
+    if (token) fetchData();
   }, [token]);
 
   if (!data) {
     return (
-      <div className="space-y-4">
-        <p className="text-xl font-bold">Loading Dashboard...</p>
+      <div className="p-4">
+        <p className="text-lg md:text-xl font-bold">
+          Loading Dashboard...
+        </p>
       </div>
     );
   }
 
   const chartData = {
-    labels: data.revenueChart.map((d) => d.month),
+    labels: data.revenueChart?.map((d) => d.month) || [],
     datasets: [
       {
         label: "Revenue",
-        data: data.revenueChart.map((d) => d.revenue),
+        data: data.revenueChart?.map((d) => d.revenue) || [],
         borderColor: "#000",
         backgroundColor: "#00000010",
         tension: 0.4,
@@ -59,19 +65,27 @@ const AdminDashboard = () => {
     ],
   };
 
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+  };
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 px-3 sm:px-4 md:px-0">
 
       {/* HEADER */}
       <div>
-        <h1 className="text-4xl font-black">Admin Dashboard</h1>
-        <p className="text-gray-500">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black">
+          Admin Dashboard
+        </h1>
+
+        <p className="text-sm sm:text-base text-gray-500 mt-1">
           Overview of your store performance
         </p>
       </div>
 
       {/* KPI CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
 
         <Card
           title="Products"
@@ -99,64 +113,96 @@ const AdminDashboard = () => {
 
       </div>
 
-      {/* SECOND ROW INSIGHTS */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* INSIGHTS + CHART */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-        <div className="bg-white p-5 rounded shadow">
-          <h3 className="font-bold mb-2">🔥 Quick Insights</h3>
+        <div className="bg-white p-4 md:p-5 rounded-xl shadow">
+          <h3 className="font-bold mb-3">
+            🔥 Quick Insights
+          </h3>
 
-          <p>📦 Pending Orders: {data.pendingOrders || 0}</p>
-          <p>🚚 Shipped Orders: {data.shippedOrders || 0}</p>
-          <p>✅ Delivered: {data.deliveredOrders || 0}</p>
+          <div className="space-y-2 text-sm sm:text-base">
+            <p>📦 Pending Orders: {data.pendingOrders || 0}</p>
+            <p>🚚 Shipped Orders: {data.shippedOrders || 0}</p>
+            <p>✅ Delivered: {data.deliveredOrders || 0}</p>
+          </div>
         </div>
 
-        <div className="bg-white p-5 rounded shadow col-span-2">
-          <h3 className="font-bold mb-3">Revenue Chart</h3>
-          <Line data={chartData} />
+        <div className="bg-white p-4 md:p-5 rounded-xl shadow lg:col-span-2">
+
+          <h3 className="font-bold mb-4">
+            Revenue Chart
+          </h3>
+
+          <div className="h-62 sm:h-80">
+            <Line
+              data={chartData}
+              options={chartOptions}
+            />
+          </div>
+
         </div>
 
       </div>
 
       {/* BOTTOM SECTION */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
         {/* TOP PRODUCTS */}
-        <div className="bg-white p-5 rounded shadow">
-          <h3 className="font-bold mb-3">🔥 Top Products</h3>
+        <div className="bg-white p-4 md:p-5 rounded-xl shadow">
+
+          <h3 className="font-bold mb-3">
+            🔥 Top Products
+          </h3>
 
           {data.topProducts?.length ? (
             data.topProducts.map((p, i) => (
               <div
                 key={i}
-                className="flex justify-between border-b py-2"
+                className="flex justify-between gap-3 border-b py-2 text-sm sm:text-base"
               >
-                <span>{p.name}</span>
-                <span className="font-bold">₹{p.sales}</span>
+                <span className="truncate">
+                  {p.name}
+                </span>
+
+                <span className="font-bold whitespace-nowrap">
+                  ₹{p.sales}
+                </span>
               </div>
             ))
           ) : (
-            <p className="text-gray-500">No data</p>
+            <p className="text-gray-500">
+              No data
+            </p>
           )}
         </div>
 
         {/* RECENT ORDERS */}
-        <div className="bg-white p-5 rounded shadow">
-          <h3 className="font-bold mb-3">🧾 Recent Orders</h3>
+        <div className="bg-white p-4 md:p-5 rounded-xl shadow">
+
+          <h3 className="font-bold mb-3">
+            🧾 Recent Orders
+          </h3>
 
           {data.recentOrders?.length ? (
             data.recentOrders.map((o, i) => (
               <div
                 key={i}
-                className="flex justify-between border-b py-2"
+                className="flex justify-between gap-3 border-b py-2 text-sm sm:text-base"
               >
-                <span>{o.shippingAddress?.fullName}</span>
-                <span className="text-sm text-gray-500">
+                <span className="truncate">
+                  {o.shippingAddress?.fullName}
+                </span>
+
+                <span className="text-gray-500 whitespace-nowrap">
                   ₹{o.total}
                 </span>
               </div>
             ))
           ) : (
-            <p className="text-gray-500">No orders</p>
+            <p className="text-gray-500">
+              No orders
+            </p>
           )}
         </div>
 
@@ -168,9 +214,16 @@ const AdminDashboard = () => {
 
 /* CARD COMPONENT */
 const Card = ({ title, value, color }) => (
-  <div className={`${color} p-5 rounded shadow`}>
-    <p className="text-gray-600">{title}</p>
-    <h2 className="text-3xl font-black">{value}</h2>
+  <div
+    className={`${color} p-4 md:p-5 rounded-xl shadow`}
+  >
+    <p className="text-xs sm:text-sm text-gray-600">
+      {title}
+    </p>
+
+    <h2 className="text-xl sm:text-2xl md:text-3xl font-black wrap-break-words">
+      {value}
+    </h2>
   </div>
 );
 

@@ -214,7 +214,7 @@ const Checkout = () => {
                   </p>
                 </div>
 
-                <span className="text-xs bg-black text-white px-3 py-1">
+                <span className="text-xs flex items-center  bg-black text-white px-3 py-1">
                   ACTIVE
                 </span>
               </div>

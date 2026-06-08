@@ -11,6 +11,11 @@ import { useWishlist } from "../Context/WishlistContext";
 
 import Cart from "./Cart";
 import { searchProducts } from "../api/productApi";
+import { GiHandBag } from "react-icons/gi";
+import { GiRunningShoe } from "react-icons/gi";
+import { MdOutlineWatch } from "react-icons/md";
+import { PiShoppingBagOpen } from "react-icons/pi";
+import { BsStars } from "react-icons/bs";
 
 const Navbar = () => {
   const [cartOpen, setCartOpen] = useState(false);
@@ -65,12 +70,12 @@ const Navbar = () => {
 
   // NAV LINKS (reuse for mobile)
   const navLinks = [
-    { name: "Bags", path: "/category/bags" },
-    { name: "Slings", path: "/category/sling" },
-    { name: "Accessories", path: "/category/accessories" },
-    { name: "Shoes", path: "/category/shoes" },
-    { name: "New Deals", path: "/category/new" },
-  ];
+  { name: "Bags", path: "/category/bags", icon: <GiHandBag /> },
+  { name: "Slings", path: "/category/sling", icon: <PiShoppingBagOpen /> },
+  { name: "Accessories", path: "/category/accessories", icon: <MdOutlineWatch /> },
+  { name: "Shoes", path: "/category/shoes", icon: <GiRunningShoe /> },
+  { name: "New Deals", path: "/category/new", icon: <BsStars /> },
+];
 
   return (
     <>
@@ -223,21 +228,61 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* 🔥 MOBILE MENU DROPDOWN */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t px-4 py-3 space-y-3">
-            {navLinks.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 font-medium border-b"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-        )}
+              {/* 🔥 MOBILE MENU DROPDOWN */}
+<div
+  className={`md:hidden absolute top-full left-0 w-full z-50 px-4 pb-4 -mt-1
+  transition-all duration-300 origin-top
+  ${
+    mobileMenuOpen
+      ? "scale-y-100 opacity-100"
+      : "scale-y-0 opacity-0 pointer-events-none"
+  }`}
+>
+  <div className="bg-white border border-zinc-100 shadow-xl rounded-2xl overflow-hidden">
+
+    {navLinks.map((item, index) => (
+      <Link
+        key={item.name}
+        to={item.path}
+        onClick={() => setMobileMenuOpen(false)}
+        className={`group flex items-center justify-between px-5 py-4
+          text-[15px] font-medium text-zinc-800
+          hover:bg-zinc-50 transition-all duration-200
+          ${
+            index !== navLinks.length - 1
+              ? "border-b border-zinc-100"
+              : ""
+          }
+        `}
+      >
+        {/* LEFT SIDE */}
+        <div className="flex items-center gap-3">
+          <span className="text-lg text-zinc-500 group-hover:text-black transition-colors">
+            {item.icon}
+          </span>
+
+          <span className="tracking-wide group-hover:translate-x-1 transition-transform duration-200">
+            {item.name}
+          </span>
+
+          {/* NEW badge */}
+          {item.name === "New Deals" && (
+            <span className="text-[10px] px-2 py-0.5 bg-black text-white rounded-full ml-1">
+              NEW
+            </span>
+          )}
+        </div>
+
+        {/* RIGHT ARROW */}
+        <span className="text-zinc-400 group-hover:text-zinc-600 group-hover:translate-x-1 transition-all">
+          ›
+        </span>
+      </Link>
+    ))}
+
+  </div>
+</div>
+
       </div>
 
       <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />

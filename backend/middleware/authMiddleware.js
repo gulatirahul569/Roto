@@ -16,8 +16,6 @@ export const protect = async (req, res, next) => {
 
       const user = await User.findById(decoded.id).select("-password");
 
-      console.log("🔐 DECODED TOKEN:", decoded);
-      console.log("👤 USER FROM DB:", user);
 
       req.user = user;
 
@@ -31,7 +29,7 @@ export const protect = async (req, res, next) => {
   }
 };
 export const adminOnly = (req, res, next) => {
-  console.log("🔥 ADMIN CHECK USER:", req.user);
+
 
   if (req.user && req.user.role === "admin") {
     next();

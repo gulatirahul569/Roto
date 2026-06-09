@@ -33,7 +33,17 @@ const orderSchema = new mongoose.Schema(
 
     paymentMethod: {
       type: String,
-      default: "COD",
+      default: "cod",
+    },
+
+    paymentStatus: {
+      type: String,
+      default: "Pending",
+    },
+
+    paymentId: {
+      type: String,
+      default: "",
     },
 
     status: {
@@ -41,7 +51,7 @@ const orderSchema = new mongoose.Schema(
       default: "Pending", // Pending → Shipped → Delivered
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model("Order", orderSchema);

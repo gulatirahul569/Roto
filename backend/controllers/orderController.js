@@ -1,5 +1,4 @@
 import Order from "../models/Order.js";
-
 export const createOrder = async (req, res) => {
   try {
     const {
@@ -8,6 +7,10 @@ export const createOrder = async (req, res) => {
       subtotal,
       shippingCharge,
       total,
+
+      paymentMethod,
+      paymentStatus,
+      paymentId,
     } = req.body;
 
     if (!items || items.length === 0) {
@@ -15,12 +18,18 @@ export const createOrder = async (req, res) => {
     }
 
     const newOrder = new Order({
-      userId: req.user._id, // ✅ FROM TOKEN (SAFE)
+      userId: req.user._id,
+
       items,
       shippingAddress,
       subtotal,
       shippingCharge,
       total,
+
+      // 🔥 ADD THESE (THIS IS THE FIX)
+      paymentMethod: paymentMethod || "cod",
+      paymentStatus: paymentStatus || "Pending",
+      paymentId: paymentId || "",
     });
 
     await newOrder.save();

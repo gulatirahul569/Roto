@@ -10,8 +10,7 @@ const storage = multer.diskStorage({
   },
 
   filename: (req, file, cb) => {
-    const uniqueName =
-      Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
 
     cb(null, uniqueName + path.extname(file.originalname));
   },
@@ -46,7 +45,7 @@ app.post("/api/upload", upload.single("image"), (req, res) => {
       });
     }
 
-    const imageUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+    const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
 
     res.json({
       success: true,

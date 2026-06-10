@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import axios from "axios";
+import { fetchProducts } from "../api/productApi";
 import ProductCard from "../Components/ProductCard";
 
 const Section3 = () => {
@@ -8,24 +8,21 @@ const Section3 = () => {
   const [products, setProducts] = useState([]);
 
   // FETCH PRODUCTS FROM BACKEND
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/api/products");
-        setProducts(res.data);
-      } catch (err) {
-        console.log("Error fetching products:", err);
-      }
-    };
+ useEffect(() => {
+  const getProducts = async () => {
+    try {
+      const data = await fetchProducts();
+      setProducts(data);
+    } catch (err) {
+      console.log("Error fetching products:", err);
+    }
+  };
 
-    getProducts();
-  }, []);
+  getProducts();
+}, []);
 
   // FILTER NEW DROPS
-  const newDrops = products.filter(
-  (p) => p.newCategory === "new"
-);
-  
+  const newDrops = products.filter((p) => p.newCategory === "new");
 
   // SCROLL LEFT
   const scrollLeft = () => {
@@ -45,7 +42,6 @@ const Section3 = () => {
 
   return (
     <div className="py-10 relative">
-
       {/* HEADING */}
       <div className="flex flex-col gap-2 mb-10">
         <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-widest text-center">
@@ -59,7 +55,6 @@ const Section3 = () => {
 
       {/* SLIDER */}
       <div className="relative">
-
         {/* LEFT BUTTON */}
         <button
           onClick={scrollLeft}
@@ -87,20 +82,14 @@ const Section3 = () => {
         >
           {newDrops.length > 0 ? (
             newDrops.map((product) => (
-              <div
-                key={product._id}
-                className="min-w-70 max-w-80 shrink-0"
-              >
+              <div key={product._id} className="min-w-70 max-w-80 shrink-0">
                 <ProductCard product={product} />
               </div>
             ))
           ) : (
-            <p className="text-gray-500 px-6">
-              Loading new drops...
-            </p>
+            <p className="text-gray-500 px-6">Loading new drops...</p>
           )}
         </div>
-
       </div>
     </div>
   );

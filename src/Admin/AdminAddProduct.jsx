@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
 import { createProduct } from "../api/productApi";
-import { categoryData } from "../data/categoryData";
+import { categoryData } from "../Data/categoryData";
 
 const Admin = () => {
     const { token } = useAuth();

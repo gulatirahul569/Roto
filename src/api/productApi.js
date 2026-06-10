@@ -54,13 +54,13 @@ export const updateProduct = async (id, data, token) => {
 //delete
 export const deleteProduct = async (id, token) => {
   const res = await axios.delete(
-    `http://localhost:5000/api/products/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  `${import.meta.env.VITE_API_URL}/products/${id}`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
   return res.data;
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { updateProduct, deleteProduct } from "../api/productApi";
+import { fetchProducts, updateProduct, deleteProduct } from "../api/productApi";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -14,17 +14,17 @@ const AdminProducts = () => {
   const { token } = useAuth();
 
   /* FETCH */
-  const fetchProducts = async () => {
+  const loadProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products");
-      setProducts(res.data);
+      const data = await fetchProducts();
+      setProducts(data);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchProducts();
+    loadProducts();
   }, []);
 
   /* UPDATE */
@@ -32,7 +32,7 @@ const AdminProducts = () => {
     try {
       await updateProduct(editingProduct._id, editingProduct, token);
       setEditingProduct(null);
-      fetchProducts();
+      loadProducts();
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +44,7 @@ const AdminProducts = () => {
 
     try {
       await deleteProduct(id, token);
-      fetchProducts();
+      loadProducts();
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +52,7 @@ const AdminProducts = () => {
 
   /* SEARCH */
   const filteredProducts = products.filter((p) =>
-    (p.name || "").toLowerCase().includes(search.toLowerCase())
+    (p.name || "").toLowerCase().includes(search.toLowerCase()),
   );
 
   /* IMAGE UPLOAD */
@@ -64,14 +64,14 @@ const AdminProducts = () => {
       setUploading(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/upload",
+        `${import.meta.env.VITE_API_URL}/upload`,
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       setEditingProduct((prev) => ({
@@ -85,26 +85,19 @@ const AdminProducts = () => {
       setUploading(false);
     }
   };
-
   return (
     <div className="space-y-6 bg-linear-to-br from-zinc-50 via-white to-blue-50/40 min-h-screen p-2">
-
       {/* HEADER */}
       <div className="bg-white/70 backdrop-blur-xl p-4 rounded-3xl shadow-lg border border-white/60">
-
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-
           <div>
-            <h1 className="text-3xl font-black">
-              Products Inventory
-            </h1>
+            <h1 className="text-3xl font-black">Products Inventory</h1>
             <p className="text-sm text-zinc-500">
               Manage your store products easily
             </p>
           </div>
 
           <div className="flex gap-2 w-full lg:w-auto">
-
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -118,17 +111,13 @@ const AdminProducts = () => {
             >
               ➕ Add
             </button>
-
           </div>
-
         </div>
       </div>
 
       {/* TABLE */}
       <div className="hidden md:block bg-white/70 backdrop-blur-xl rounded-3xl shadow-lg overflow-hidden">
-
         <table className="w-full text-sm">
-
           <thead className="bg-zinc-100 text-xs uppercase text-zinc-500">
             <tr>
               <th className="p-4 text-left">Product</th>
@@ -142,7 +131,6 @@ const AdminProducts = () => {
           <tbody>
             {filteredProducts.map((p) => (
               <tr key={p._id} className="border-t hover:bg-blue-50/30">
-
                 <td className="p-4 flex items-center gap-3">
                   <img
                     src={p.image}
@@ -172,8 +160,8 @@ const AdminProducts = () => {
                       p.stock > 10
                         ? "bg-green-100 text-green-700"
                         : p.stock > 0
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : "bg-red-100 text-red-700"
                     }`}
                   >
                     {p.stock > 0 ? `${p.stock} in stock` : "Out of stock"}
@@ -195,20 +183,16 @@ const AdminProducts = () => {
                     Delete
                   </button>
                 </td>
-
               </tr>
             ))}
           </tbody>
-
         </table>
       </div>
 
       {/* MOBILE */}
       <div className="md:hidden space-y-4">
-
         {filteredProducts.map((p) => (
           <div key={p._id} className="bg-white p-4 rounded-xl shadow">
-
             <div className="flex gap-3">
               <img
                 src={p.image}
@@ -237,7 +221,6 @@ const AdminProducts = () => {
                 Delete
               </button>
             </div>
-
           </div>
         ))}
       </div>
@@ -245,32 +228,26 @@ const AdminProducts = () => {
       {/* ========================= EDIT MODAL ========================= */}
       {editingProduct && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-
           <div className="bg-white w-full max-w-md p-6 rounded-3xl space-y-4">
-
             <h2 className="text-xl font-bold">Edit Product</h2>
 
-                  {/* NAME */}
-                  <label className="text-sm font-semibold">Product Name</label>
-                  <input
-                    className="w-full p-3 border rounded-xl"
-                    value={editingProduct.name}
-                    onChange={(e) =>
-                      setEditingProduct({
-                        ...editingProduct,
-                        name: e.target.value,
-                      })
-                    }
-                  />
+            {/* NAME */}
+            <label className="text-sm font-semibold">Product Name</label>
+            <input
+              className="w-full p-3 border rounded-xl"
+              value={editingProduct.name}
+              onChange={(e) =>
+                setEditingProduct({
+                  ...editingProduct,
+                  name: e.target.value,
+                })
+              }
+            />
             {/* IMAGE */}
             <div className="space-y-2">
-
-              <label className="text-sm font-semibold">
-                Product Image
-              </label>
+              <label className="text-sm font-semibold">Product Image</label>
 
               <div className="border-2 border-dashed p-4 rounded-xl text-center bg-zinc-50">
-
                 <input
                   type="file"
                   id="editImg"
@@ -280,7 +257,6 @@ const AdminProducts = () => {
                 />
 
                 <label htmlFor="editImg" className="cursor-pointer block">
-
                   {uploading ? (
                     <p className="text-blue-500 text-sm">Uploading...</p>
                   ) : editingProduct.image ? (
@@ -291,14 +267,10 @@ const AdminProducts = () => {
                   ) : (
                     <p>Upload Image</p>
                   )}
-
                 </label>
-
               </div>
 
-              <label className="text-sm font-semibold">
-                Or Image URL
-              </label>
+              <label className="text-sm font-semibold">Or Image URL</label>
 
               <input
                 className="w-full p-3 border rounded-xl"
@@ -312,7 +284,6 @@ const AdminProducts = () => {
                 placeholder="Paste image URL"
               />
             </div>
-
 
             {/* PRICE */}
             <label className="text-sm font-semibold">Price</label>
@@ -356,12 +327,9 @@ const AdminProducts = () => {
                 Cancel
               </button>
             </div>
-
           </div>
-
         </div>
       )}
-
     </div>
   );
 };

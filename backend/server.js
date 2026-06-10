@@ -65,7 +65,7 @@ app.post("/api/upload", upload.single("image"), (req, res) => {
       });
     }
 
-    const imageUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+const imageUrl =`${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
 
     res.json({
       success: true,

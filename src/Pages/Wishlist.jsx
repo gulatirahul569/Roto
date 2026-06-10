@@ -1,9 +1,16 @@
 import React from "react";
 import { useWishlist } from "../Context/WishlistContext";
 import ProductCard from "../Components/ProductCard";
+import { useAuth } from "../Context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 const Wishlist = () => {
   const { wishlist } = useWishlist();
+  const { user } = useAuth();
+
+if (!user) {
+  return <Navigate to="/login" />;
+}
 
   if (wishlist.length === 0) {
     return (

@@ -31,6 +31,7 @@ const CategoryPage = () => {
     const loadProducts = async () => {
       try {
         const res = await fetchProducts();
+       
         const list = res?.products || res || [];
 
         const normalized = list.map((p) => ({
@@ -69,7 +70,7 @@ const CategoryPage = () => {
   const categoryProducts = products.filter(
     (item) =>
       (item.newCategory || "").toLowerCase().trim() ===
-      (data?.productType || "").toLowerCase().trim()
+      (data?.productType || "").toLowerCase().trim(),
   );
 
   // SUB FILTER
@@ -79,7 +80,7 @@ const CategoryPage = () => {
       : categoryProducts.filter(
           (item) =>
             (item.category || "").toLowerCase() ===
-            selectedFilter.toLowerCase()
+            selectedFilter.toLowerCase(),
         );
 
   // PRICE FILTER
@@ -87,11 +88,11 @@ const CategoryPage = () => {
     filteredProducts = filteredProducts.filter((p) => p.price < 3000);
   } else if (selectedPrice === "₹3000 - ₹6000") {
     filteredProducts = filteredProducts.filter(
-      (p) => p.price >= 3000 && p.price <= 6000
+      (p) => p.price >= 3000 && p.price <= 6000,
     );
   } else if (selectedPrice === "₹6000 - ₹9000") {
     filteredProducts = filteredProducts.filter(
-      (p) => p.price >= 6000 && p.price <= 9000
+      (p) => p.price >= 6000 && p.price <= 9000,
     );
   } else if (selectedPrice === "Above ₹9000") {
     filteredProducts = filteredProducts.filter((p) => p.price > 9000);
@@ -118,7 +119,6 @@ const CategoryPage = () => {
 
   return (
     <div className="bg-[#f5f5f5] min-h-screen">
-
       {/* HERO */}
       <div className="relative h-[45vh] md:h-[70vh] w-full">
         <motion.img
@@ -157,10 +157,7 @@ const CategoryPage = () => {
         }`}
       >
         <div className="bg-white p-4 rounded-lg shadow-md">
-
-          <h3 className="text-xs uppercase text-zinc-400 mb-3">
-            Categories
-          </h3>
+          <h3 className="text-xs uppercase text-zinc-400 mb-3">Categories</h3>
 
           <div className="flex flex-col gap-2">
             {data.filters.map((filter) => (
@@ -203,16 +200,13 @@ const CategoryPage = () => {
               </button>
             ))}
           </div>
-
         </div>
       </div>
 
       <div className="flex flex-col lg:flex-row">
-
         {/* DESKTOP SIDEBAR */}
         <div className="hidden lg:block lg:w-80 lg:sticky lg:top-16 self-start">
           <div className="bg-white px-5 py-6 h-screen overflow-y-auto">
-
             <h2 className="text-3xl font-bold uppercase">Filters</h2>
 
             <h3 className="text-xs uppercase text-zinc-400 mt-6 mb-4">
@@ -258,20 +252,15 @@ const CategoryPage = () => {
                 {price}
               </button>
             ))}
-
           </div>
         </div>
 
         {/* PRODUCTS */}
         <div className="flex-1 px-4 md:px-8 py-6">
-
           {/* TOP BAR */}
           <div className="flex justify-between items-center gap-3 mb-6">
-
             <div className="flex-1 min-w-0">
-              <h2 className="text-3xl font-bold uppercase">
-                Products
-              </h2>
+              <h2 className="text-3xl font-bold uppercase">Products</h2>
               <p className="text-gray-500">
                 Showing {finalProducts.length} products
               </p>
@@ -288,7 +277,6 @@ const CategoryPage = () => {
 
               {open && (
                 <div className="absolute top-full right-0 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-50 overflow-hidden">
-
                   {options.map((option) => (
                     <button
                       key={option}
@@ -302,11 +290,9 @@ const CategoryPage = () => {
                       {option}
                     </button>
                   ))}
-
                 </div>
               )}
             </div>
-
           </div>
 
           {/* GRID */}
@@ -321,7 +307,6 @@ const CategoryPage = () => {
               </motion.div>
             ))}
           </div>
-
         </div>
       </div>
     </div>

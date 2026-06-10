@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API = "http://localhost:5000/api/products";
+const API = `${import.meta.env.VITE_API_URL}/products`;
+
 
 // GET ALL PRODUCTS
 export const fetchProducts = async () => {
@@ -39,7 +40,7 @@ export const createProduct = async (
 //update
 export const updateProduct = async (id, data, token) => {
   const res = await axios.put(
-    `http://localhost:5000/api/products/${id}`,
+    `${import.meta.env.VITE_API_URL}/products/${id}`,
     data,
     {
       headers: {

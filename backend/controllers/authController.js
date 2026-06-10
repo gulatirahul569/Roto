@@ -1,9 +1,11 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
-// JWT SECRET (single source of truth)
-const JWT_SECRET = process.env.JWT_SECRET || "secretkey";
+
+
 
 /* ---------------- REGISTER ---------------- */
 export const register = async (req, res) => {
@@ -26,7 +28,7 @@ export const register = async (req, res) => {
 
     const token = jwt.sign(
       { id: user._id },
-      JWT_SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
 
@@ -69,7 +71,7 @@ export const login = async (req, res) => {
 
     const token = jwt.sign(
       { id: user._id },
-      JWT_SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
 

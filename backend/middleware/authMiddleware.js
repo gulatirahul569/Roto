@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-const JWT_SECRET = process.env.JWT_SECRET || "secretkey";
+
 export const protect = async (req, res, next) => {
   try {
     let token;
@@ -12,10 +14,9 @@ export const protect = async (req, res, next) => {
     ) {
       token = req.headers.authorization.split(" ")[1];
 
-      const decoded = jwt.verify(token, JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
       const user = await User.findById(decoded.id).select("-password");
-
 
       req.user = user;
 
@@ -29,8 +30,6 @@ export const protect = async (req, res, next) => {
   }
 };
 export const adminOnly = (req, res, next) => {
-
-
   if (req.user && req.user.role === "admin") {
     next();
   } else {

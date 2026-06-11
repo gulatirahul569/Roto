@@ -4,7 +4,7 @@ const API = `${import.meta.env.VITE_API_URL}/auth`;
 
 // REGISTER
 export const registerUser = (data) => {
-  return axios.post(`${API}/register`, data);
+  return axios.post(`${API}/api/register`, data);
 };
 
 // LOGIN

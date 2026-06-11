@@ -19,7 +19,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}auth/register`, formData);
+      await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, formData);
 
       alert("Account created successfully");
       navigate("/login");

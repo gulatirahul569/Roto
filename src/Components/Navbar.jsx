@@ -19,6 +19,19 @@ import { BsStars } from "react-icons/bs";
 
 const Navbar = () => {
   const [cartOpen, setCartOpen] = useState(false);
+
+  useEffect(() => {
+  if (cartOpen) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+
+  return () => {
+    document.body.style.overflow = "auto";
+  };
+}, [cartOpen]);
+
   const [showMenu, setShowMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 

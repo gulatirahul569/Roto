@@ -32,35 +32,35 @@ const ProductCard = ({ product }) => {
   return (
     <div className="group relative w-full bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
 
-      {/* IMAGE */}
-      <div className="relative overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-68 object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+     {/* IMAGE */}
+<div className="relative overflow-hidden h-64 bg-gray-100 flex items-center justify-center">
+  <img
+    src={product.image}
+    alt={product.name}
+    className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105"
+  />
 
-        {/* overlay */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
+  {/* overlay */}
+  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
 
-        {/* wishlist */}
-        <button
-          onClick={handleWishlist}
-          className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full bg-white shadow-md hover:scale-110 transition"
-        >
-          {isInWishlist(product._id) ? "❤️" : "🤍"}
-        </button>
+  {/* wishlist */}
+  <button
+    onClick={handleWishlist}
+    className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full bg-white shadow-md hover:scale-110 transition"
+  >
+    {isInWishlist(product._id) ? "❤️" : "🤍"}
+  </button>
 
-        {/* quick view */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-          <button
-            onClick={() => navigate(`/product/${product._id}`)}
-            className="bg-black/70 text-white text-xs px-4 py-2 rounded-full"
-          >
-            QUICK VIEW
-          </button>
-        </div>
-      </div>
+  {/* quick view */}
+  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+    <button
+      onClick={() => navigate(`/product/${product._id}`)}
+      className="bg-black/70 text-white text-xs px-4 py-2 rounded-full"
+    >
+      QUICK VIEW
+    </button>
+  </div>
+</div>
 
       {/* INFO */}
       <div className="p-3">

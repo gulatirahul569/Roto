@@ -282,10 +282,10 @@ const CategoryPage = () => {
       <div className="flex flex-col lg:flex-row">
         {/* DESKTOP SIDEBAR */}
         <div className="hidden lg:block lg:w-80 lg:sticky lg:top-16 self-start">
-          <div className="bg-white px-5 py-6 h-screen overflow-y-auto">
+          <div className="bg-white px-6 py-6 h-screen overflow-y-auto">
             <h2 className="text-3xl font-bold uppercase">Filters</h2>
 
-            <h3 className="text-xs uppercase text-zinc-400 mt-6 mb-4">
+            <h3 className="text-xs uppercase text-zinc-400 mt-3 mb-4">
               Categories
             </h3>
 

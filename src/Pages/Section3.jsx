@@ -4,40 +4,45 @@ import ProductCard from "../Components/ProductCard";
 
 const Section3 = () => {
   const sliderRef = useRef(null);
-
   const [products, setProducts] = useState([]);
 
-  // FETCH PRODUCTS FROM BACKEND
- useEffect(() => {
-  const getProducts = async () => {
-    try {
-      const data = await fetchProducts();
-      setProducts(data);
-    } catch (err) {
-      console.log("Error fetching products:", err);
-    }
-  };
+  // FETCH PRODUCTS
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const data = await fetchProducts();
+        setProducts(data?.products || data || []);
+      } catch (err) {
+        console.log("Error fetching products:", err);
+      }
+    };
 
-  getProducts();
-}, []);
+    getProducts();
+  }, []);
 
   // FILTER NEW DROPS
-  const newDrops = products.filter((p) => p.newCategory === "new");
+  const newDrops = products.filter(
+    (p) => (p.newCategory || "").toLowerCase() === "new"
+  );
 
   // SCROLL LEFT
   const scrollLeft = () => {
-    sliderRef.current.scrollBy({
-      left: -350,
-      behavior: "smooth",
-    });
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({
+        left: -300,
+        behavior: "smooth",
+      });
+    }
   };
 
   // SCROLL RIGHT
   const scrollRight = () => {
-    sliderRef.current.scrollBy({
-      left: 350,
-      behavior: "smooth",
-    });
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({
+        left: 300,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
@@ -55,12 +60,13 @@ const Section3 = () => {
 
       {/* SLIDER */}
       <div className="relative">
+
         {/* LEFT BUTTON */}
         <button
           onClick={scrollLeft}
-          className="absolute left-2 top-1/3 -translate-y-1/2 z-10
-          bg-white shadow-lg px-4 py-3 rounded-full text-2xl
-          hover:scale-110 transition"
+          className="absolute left-2 top-1/2 -translate-y-1/2 z-20
+          bg-white shadow-lg px-3 py-2 rounded-full text-xl
+          hover:scale-105 transition active:scale-95"
         >
           ←
         </button>
@@ -68,9 +74,9 @@ const Section3 = () => {
         {/* RIGHT BUTTON */}
         <button
           onClick={scrollRight}
-          className="absolute right-2 top-1/3 -translate-y-1/2 z-10
-          bg-gray-300 shadow-lg px-4 py-3 rounded-full text-2xl
-          hover:scale-105 transition"
+          className="absolute right-2 top-1/2 -translate-y-1/2 z-20
+          bg-white shadow-lg px-3 py-2 rounded-full text-xl
+          hover:scale-105 transition active:scale-95"
         >
           →
         </button>
@@ -78,11 +84,14 @@ const Section3 = () => {
         {/* PRODUCTS SCROLLER */}
         <div
           ref={sliderRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth px-6 pb-6 items-stretch scrollbar-hide"
+          className="flex gap-4 overflow-x-auto scroll-smooth px-4 pb-6 items-stretch scrollbar-hide"
         >
           {newDrops.length > 0 ? (
             newDrops.map((product) => (
-              <div key={product._id} className="min-w-70 max-w-80 shrink-0">
+              <div
+                key={product._id}
+                className="min-w-50 max-w-50 sm:min-w-50 max-w-50 md:min-w-50 lg:min-w-55 shrink-0"
+              >
                 <ProductCard product={product} />
               </div>
             ))

@@ -33,7 +33,7 @@ const ProductCard = ({ product }) => {
     <div className="group relative w-full bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
 
       {/* IMAGE */}
-      <div className="relative overflow-hidden h-52 bg-white flex items-center justify-center">
+      <div className="relative overflow-hidden h-52 lg:h-62 bg-white flex items-center justify-center">
 
         <img
           src={product.image}

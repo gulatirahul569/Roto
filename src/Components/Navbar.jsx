@@ -21,16 +21,16 @@ const Navbar = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
-  if (cartOpen) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
+    if (cartOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
 
-  return () => {
-    document.body.style.overflow = "auto";
-  };
-}, [cartOpen]);
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [cartOpen]);
 
   const [showMenu, setShowMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -43,7 +43,8 @@ const Navbar = () => {
   const { user, logout } = useAuth();
   const { cartItems } = useCart();
   const { wishlist } = useWishlist();
-
+  
+  const mobileMenuRef = useRef();
   const menuRef = useRef();
   const searchRef = useRef();
 
@@ -66,14 +67,34 @@ const Navbar = () => {
     return () => clearTimeout(delay);
   }, [searchTerm]);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [mobileMenuOpen]);
+
   // OUTSIDE CLICK
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setShowMenu(false);
       }
+
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setSearchOpen(false);
+      }
+
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target)
+      ) {
+        setMobileMenuOpen(false);
       }
     };
 
@@ -81,14 +102,15 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+
   // NAV LINKS (reuse for mobile)
   const navLinks = [
-  { name: "Bags", path: "/category/bags", icon: <GiHandBag /> },
-  { name: "Slings", path: "/category/sling", icon: <PiShoppingBagOpen /> },
-  { name: "Accessories", path: "/category/accessories", icon: <MdOutlineWatch /> },
-  { name: "Shoes", path: "/category/shoes", icon: <GiRunningShoe /> },
-  { name: "New Deals", path: "/category/new", icon: <BsStars /> },
-];
+    { name: "Bags", path: "/category/bags", icon: <GiHandBag /> },
+    { name: "Slings", path: "/category/sling", icon: <PiShoppingBagOpen /> },
+    { name: "Accessories", path: "/category/accessories", icon: <MdOutlineWatch /> },
+    { name: "Shoes", path: "/category/shoes", icon: <GiRunningShoe /> },
+    { name: "New Deals", path: "/category/new", icon: <BsStars /> },
+  ];
 
   return (
     <>
@@ -241,60 +263,59 @@ const Navbar = () => {
           </div>
         </div>
 
-              {/* 🔥 MOBILE MENU DROPDOWN */}
-<div
-  className={`md:hidden absolute top-full left-0 w-full z-50 px-4 pb-4 -mt-1
+        {/* 🔥 MOBILE MENU DROPDOWN */}
+        <div
+          ref={mobileMenuRef}
+          className={`md:hidden absolute top-full left-0 w-full z-50 px-4 pb-4 -mt-1
   transition-all duration-300 origin-top
-  ${
-    mobileMenuOpen
-      ? "scale-y-100 opacity-100"
-      : "scale-y-0 opacity-0 pointer-events-none"
-  }`}
->
-  <div className="bg-white border border-zinc-100 shadow-xl rounded-2xl overflow-hidden">
+  ${mobileMenuOpen
+              ? "scale-y-100 opacity-100"
+              : "scale-y-0 opacity-0 pointer-events-none"
+            }`}
+        >
+          <div className="bg-white border border-zinc-100 shadow-xl rounded-2xl overflow-hidden">
 
-    {navLinks.map((item, index) => (
-      <Link
-        key={item.name}
-        to={item.path}
-        onClick={() => setMobileMenuOpen(false)}
-        className={`group flex items-center justify-between px-5 py-4
+            {navLinks.map((item, index) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`group flex items-center justify-between px-5 py-4
           text-[15px] font-medium text-zinc-800
           hover:bg-zinc-50 transition-all duration-200
-          ${
-            index !== navLinks.length - 1
-              ? "border-b border-zinc-100"
-              : ""
-          }
+          ${index !== navLinks.length - 1
+                    ? "border-b border-zinc-100"
+                    : ""
+                  }
         `}
-      >
-        {/* LEFT SIDE */}
-        <div className="flex items-center gap-3">
-          <span className="text-lg text-zinc-500 group-hover:text-black transition-colors">
-            {item.icon}
-          </span>
+              >
+                {/* LEFT SIDE */}
+                <div className="flex items-center gap-3">
+                  <span className="text-lg text-zinc-500 group-hover:text-black transition-colors">
+                    {item.icon}
+                  </span>
 
-          <span className="tracking-wide group-hover:translate-x-1 transition-transform duration-200">
-            {item.name}
-          </span>
+                  <span className="tracking-wide group-hover:translate-x-1 transition-transform duration-200">
+                    {item.name}
+                  </span>
 
-          {/* NEW badge */}
-          {item.name === "New Deals" && (
-            <span className="text-[10px] px-2 py-0.5 bg-black text-white rounded-full ml-1">
-              NEW
-            </span>
-          )}
+                  {/* NEW badge */}
+                  {item.name === "New Deals" && (
+                    <span className="text-[10px] px-2 py-0.5 bg-black text-white rounded-full ml-1">
+                      NEW
+                    </span>
+                  )}
+                </div>
+
+                {/* RIGHT ARROW */}
+                <span className="text-zinc-400 group-hover:text-zinc-600 group-hover:translate-x-1 transition-all">
+                  ›
+                </span>
+              </Link>
+            ))}
+
+          </div>
         </div>
-
-        {/* RIGHT ARROW */}
-        <span className="text-zinc-400 group-hover:text-zinc-600 group-hover:translate-x-1 transition-all">
-          ›
-        </span>
-      </Link>
-    ))}
-
-  </div>
-</div>
 
       </div>
 

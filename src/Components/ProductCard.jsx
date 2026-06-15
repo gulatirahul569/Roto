@@ -8,27 +8,16 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const { cartItems, addToCart, increaseQty, decreaseQty } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
+  const { user } = useAuth();
 
   const cartItem = cartItems.find((item) => item._id === product._id);
 
-  // ⭐ STAR RENDER FUNCTION
   const renderStars = (rating = 0) => {
     const fullStars = Math.floor(rating);
-
-    const stars = [];
-
-    for (let i = 1; i <= 5; i++) {
-      if (i <= fullStars) {
-        stars.push("⭐");
-      } else {
-        stars.push("☆");
-      }
-    }
-
-    return stars.join("");
+    return Array.from({ length: 5 }, (_, i) =>
+      i < fullStars ? "⭐" : "☆"
+    ).join("");
   };
-
-  const { user } = useAuth();
 
   const handleWishlist = () => {
     if (!user) {
@@ -41,75 +30,78 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="group relative  bg-white/80 backdrop-blur-md border border-white/20 rounded-3xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 ">
-      {/* IMAGE SECTION */}
+    <div className="group relative w-full bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+
+      {/* IMAGE */}
       <div className="relative overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-70 object-cover group-hover:scale-110 transition duration-500"
+          className="w-full h-68 object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
-        {/* DARK OVERLAY */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
+        {/* overlay */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
 
-        {/* ❤️ WISHLIST BUTTON (TOP RIGHT) */}
+        {/* wishlist */}
         <button
           onClick={handleWishlist}
-          className="absolute top-3 right-3 bg-white/80 backdrop-blur-md rounded-full w-10 h-10 flex items-center justify-center text-xl shadow-md hover:scale-110 transition"
+          className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full bg-white shadow-md hover:scale-110 transition"
         >
           {isInWishlist(product._id) ? "❤️" : "🤍"}
         </button>
 
-        {/* QUICK VIEW */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition pointer-events-none">
+        {/* quick view */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
           <button
             onClick={() => navigate(`/product/${product._id}`)}
-            className="pointer-events-auto text-white text-sm tracking-widest bg-black/40 px-4 py-2 rounded-full cursor-pointer"
+            className="bg-black/70 text-white text-xs px-4 py-2 rounded-full"
           >
             QUICK VIEW
           </button>
         </div>
       </div>
 
-      {/* PRODUCT INFO */}
-      <div className="p-4">
-        <div className="flex justify-between items-center">
-          <h2 className="text-lg text-nowrap  font-semibold uppercase">
+      {/* INFO */}
+      <div className="p-3">
+        <div className="flex justify-between items-start gap-2">
+          <h2 className="font-semibold text-sm truncate flex-1">
             {product.name}
           </h2>
 
-          <span className="text-sm text-gray-500">{product.category}</span>
+          <span className="text-xs text-gray-500 shrink-0 capitalize">
+            {product.category}
+          </span>
         </div>
 
-        {/* ⭐ RATING */}
-        <div className="mt-2 text-yellow-500 text-sm">
-          {renderStars(product.rating || 0)}{" "}
-          <span className="text-gray-500 ml-2">({product.rating || 0})</span>
+        {/* rating */}
+        <div className="mt-2 text-yellow-500 text-xs">
+          {renderStars(product.rating || 0)}
+          <span className="text-gray-500 ml-1">
+            ({product.rating || 0})
+          </span>
         </div>
 
-        <div className="mt-5 flex justify-between items-center">
-          <p className="text-xl font-black">₹{product.price}</p>
+        {/* price + cart */}
+        <div className="mt-3 flex items-center justify-between">
+          <p className="text-lg font-bold">₹{product.price}</p>
 
           {cartItem ? (
-            <div className="flex items-center gap-3">
-              {/* minus */}
+            <div className="flex items-center gap-2 border rounded-md px-2 py-1">
               <button
                 onClick={() => decreaseQty(product._id)}
-                className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-100 transition"
+                className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded"
               >
                 -
               </button>
 
-              {/* quantity */}
-              <span className="font-semibold min-w-2 text-center">
+              <span className="font-semibold text-sm">
                 {cartItem.quantity}
               </span>
 
-              {/* plus */}
               <button
                 onClick={() => increaseQty(product._id)}
-                className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-100 transition"
+                className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded"
               >
                 +
               </button>
@@ -117,7 +109,7 @@ const ProductCard = ({ product }) => {
           ) : (
             <button
               onClick={() => addToCart(product)}
-              className="bg-black text-white px-5 py-2 rounded-full hover:bg-gray-800 transition"
+              className="bg-black text-white text-sm px-4 py-2 rounded-lg hover:bg-gray-800 transition"
             >
               Add
             </button>

@@ -32,8 +32,9 @@ const ProductCard = ({ product }) => {
   return (
     <div className="group relative w-full bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
 
-     {/* IMAGE */}
+    {/* IMAGE */}
 <div className="relative overflow-hidden h-64 bg-white flex items-center justify-center">
+  
   <img
     src={product.image}
     alt={product.name}
@@ -41,18 +42,18 @@ const ProductCard = ({ product }) => {
   />
 
   {/* overlay */}
-  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
+  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition z-10" />
 
   {/* wishlist */}
   <button
     onClick={handleWishlist}
-    className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full bg-white shadow-md hover:scale-110 transition"
+    className="absolute top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-white shadow-md hover:scale-110 transition"
   >
     {isInWishlist(product._id) ? "❤️" : "🤍"}
   </button>
 
   {/* quick view */}
-  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition z-10">
     <button
       onClick={() => navigate(`/product/${product._id}`)}
       className="bg-black/70 text-white text-xs px-4 py-2 rounded-full"
@@ -60,6 +61,7 @@ const ProductCard = ({ product }) => {
       QUICK VIEW
     </button>
   </div>
+
 </div>
 
       {/* INFO */}

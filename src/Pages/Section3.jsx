@@ -90,7 +90,7 @@ const Section3 = () => {
             newDrops.map((product) => (
               <div
                 key={product._id}
-                className="min-w-50 max-w-50 sm:min-w-50 max-w-50 md:min-w-50 lg:min-w-55 shrink-0"
+                className="min-w-50 max-w-50 sm:min-w-50 md:min-w-50 lg:min-w-68 shrink-0"
               >
                 <ProductCard product={product} />
               </div>

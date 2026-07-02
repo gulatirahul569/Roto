@@ -9,6 +9,9 @@ import { useAuth } from "../Context/AuthContext";
 import { useCart } from "../Context/CartContext";
 import { useWishlist } from "../Context/WishlistContext";
 
+import { MdLocationOn } from "react-icons/md";
+import { useLocation } from "../Context/LocationContext";
+
 import Cart from "./Cart";
 import { searchProducts } from "../api/productApi";
 import { GiHandBag } from "react-icons/gi";
@@ -47,6 +50,12 @@ const Navbar = () => {
   const mobileMenuRef = useRef();
   const menuRef = useRef();
   const searchRef = useRef();
+
+  const { location, loading, error, detectLocation } = useLocation();
+
+  useEffect(() => {
+    if (!location) detectLocation();
+  }, []);
 
   const [results, setResults] = useState([]);
 
@@ -133,6 +142,18 @@ const Navbar = () => {
                 alt="logo"
               />
             </Link>
+            <button
+              onClick={detectLocation}
+              title={error || "Click to refresh location"}
+              className="hidden sm:flex items-center gap-1 text-xs font-medium text-zinc-600 hover:text-black bg-zinc-100 px-3 py-2 rounded-full max-w-40 truncate"
+            >
+              <MdLocationOn size={16} className="shrink-0" />
+              {loading
+                ? "Locating..."
+                : location
+                ? location.area || location.city
+                : "Enable Location"}
+            </button>
           </div>
 
           {/* DESKTOP MENU */}

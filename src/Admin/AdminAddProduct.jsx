@@ -18,6 +18,7 @@ const Admin = () => {
     subCategory: "",
     description: "",
     stock: "",
+    deliverablePincodes: "",
   });
 
   /* ======================
@@ -84,6 +85,10 @@ const Admin = () => {
         ...form,
         price: Number(form.price),
         stock: Number(form.stock),
+         deliverablePincodes: form.deliverablePincodes
+          .split(",")
+          .map((p) => p.trim())
+          .filter(Boolean),
       };
 
       await createProduct(cleanedData, token);
@@ -161,6 +166,13 @@ const Admin = () => {
                 placeholder="Stock"
                 className="p-3 border rounded-lg"
               />
+              <input
+              name="deliverablePincodes"
+              value={form.deliverablePincodes}
+              onChange={handleChange}
+              placeholder="Deliverable pincodes (comma separated, leave blank for all)"
+              className="w-full p-3 border rounded-lg"
+            />
             </div>
 
             {/* 🔥 IMAGE UPLOAD SECTION (FIXED UI) */}

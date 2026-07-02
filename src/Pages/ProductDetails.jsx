@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { fetchProductById } from "../api/productApi";
 import { useCart } from "../Context/CartContext";
 import { useWishlist } from "../Context/WishlistContext";
+import DeliveryCheck from "../Components/DeliveryCheck";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -209,7 +210,7 @@ const ProductDetails = () => {
                                     : "Out of Stock"}
                             </span>
                         </div>
-
+                        <DeliveryCheck product={product} />
                         <button
                             onClick={() => addToCart(product)}
                             className="mt-10 w-full bg-black text-white py-4 rounded-md font-medium hover:bg-gray-800 transition"

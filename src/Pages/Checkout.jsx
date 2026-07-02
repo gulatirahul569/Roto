@@ -135,6 +135,19 @@ const Checkout = () => {
       return alert("Please fill all shipping details");
     }
 
+    // NEW: block order if any cart item can't be delivered to this pincode
+    const undeliverableItems = cartItems.filter((item) => {
+      const allowed = item.deliverablePincodes || [];
+      return allowed.length > 0 && !allowed.includes(shipping.pincode);
+    });
+
+    if (undeliverableItems.length > 0) {
+      const names = undeliverableItems.map((i) => i.name).join(", ");
+      return alert(
+        `Sorry, these items can't be delivered to pincode ${shipping.pincode}: ${names}`
+      );
+    }
+
     if (paymentMethod === "online") {
       fakePayment();
       return;
